@@ -16,4 +16,10 @@ public interface BuyerRepository extends PagingAndSortingRepository<Buyer, Long>
     @Query("select b from Buyer b where b.name like %?1%")
     List<Buyer> findBuyersByName(String name);
 
+    @Query("select b from Buyer b where b.isContacted = false")
+    List<Buyer> listNonContactedBuyers();
+
+    @Query("select b from Buyer b where b.isContacted = true")
+    List<Buyer> listContactedBuyers();
+
 }
