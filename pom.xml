@@ -19,6 +19,7 @@
         <module>auth</module>
         <module>core</module>
         <module>discovery</module>
+        <module>jsf-frontend</module>
         <module>gateway</module>
         <module>spring-backend</module>
         <module>token</module>
