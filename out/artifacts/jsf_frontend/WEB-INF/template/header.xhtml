@@ -4,13 +4,16 @@
         xmlns:p="http://primefaces.org/ui"
         xmlns:f="http://xmlns.jcp.org/jsf/core"
 >
+
     <h:form>
+
         <p:growl id="messages" showDetail="true"/>
+
         <p:toolbar>
 
             <f:facet name="left">
                 <h:panelGrid columns="4">
-                    <p:commandButton value="Home" icon="pi pi_home"/>
+                    <p:commandButton value="Home" icon="pi pi-home"/>
                     <div class="ui-g-12 ui-md-4">
                         <div class="ui-inputgroup">
                             <p:inputText placeholder="Procurar"/>
@@ -36,6 +39,9 @@
                 <p:commandButton value="LogIn"
                                  icon="pi pi-sign-in"/>
             </f:facet>
+
         </p:toolbar>
+
     </h:form>
+
 </ui:composition>
