@@ -86,7 +86,7 @@ public class BuyerRequest implements Serializable {
 
     private List<Buyer> listFromBodyResponseEntityGetRequestParameter(String url, Vehicle vehicle) {
         ResponseEntity<List<Buyer>> exchange = restTemplate.exchange(url,
-                GET, new HttpEntity<>(jsonUtil.buildStringJsonVehicle(vehicle), jsonUtil.createJsonHeader()),
+                GET, new HttpEntity<>(vehicle, jsonUtil.createJsonHeader()),
                 new ParameterizedTypeReference<>() {
                 });
         return exchange.getBody();

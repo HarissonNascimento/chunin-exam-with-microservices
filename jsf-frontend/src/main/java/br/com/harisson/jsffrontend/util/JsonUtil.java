@@ -1,6 +1,5 @@
 package br.com.harisson.jsffrontend.util;
 
-import br.com.harisson.core.model.Vehicle;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -45,17 +44,4 @@ public class JsonUtil {
         return "{\"username\":" + addQuotes(username) + ",\"password\":" + addQuotes(password) + "}";
     }
 
-    public String buildStringJsonVehicle(Vehicle vehicle) {
-        return "{\"id\":" + vehicle.getId()
-                + ",\"price\":" + vehicle.getPrice()
-                + ",\"year\":" + vehicle.getYear()
-                + ",\"vehicleType\":" + addQuotes(vehicle.getVehicleType())
-                + ",\"fuelType\":" + addQuotes(vehicle.getFuelType())
-                + ",\"transmissionType\":" + addQuotes(vehicle.getTransmissionType())
-                + ",\"vehicleManufacturer\":" + addQuotes(vehicle.getVehicleManufacturer())
-                + ",\"model\":" + addQuotes(vehicle.getModel())
-                + ",\"description\":" + addQuotes(vehicle.getDescription())
-                + ",\"imagesFolderDirectory\":" + addQuotes(vehicle.getImagesFolderDirectory())
-                + ",\"sold\":" + vehicle.isSold();
-    }
 }
