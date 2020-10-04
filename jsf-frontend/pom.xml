@@ -78,6 +78,10 @@
             <version>${core.version}</version>
             <exclusions>
                 <exclusion>
+                    <groupId>br.com.harisson</groupId>
+                    <artifactId>chunin-exam-microservices</artifactId>
+                </exclusion>
+                <exclusion>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot</artifactId>
                 </exclusion>

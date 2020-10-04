@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Entity
 @Getter
@@ -20,9 +19,6 @@ public class Vehicle implements AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
-
-    @OneToMany
-    private List<Buyer> buyers;
 
     @NotNull(message = "The field 'price' is mandatory")
     @Column(nullable = false, length = 22)

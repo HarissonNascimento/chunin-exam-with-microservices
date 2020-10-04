@@ -1,8 +1,5 @@
 package br.com.harisson.jsffrontend.util;
 
-import lombok.Getter;
-
-@Getter
 public enum APIUtil {
     URL_VEHICLE_BASE("http://localhost:8082/gateway/spring-backend/v1/vehicle"),
     URL_VEHICLE_POST(concatUrlVehicleBaseWithComplement("/admin")),
@@ -22,7 +19,9 @@ public enum APIUtil {
     URL_BUYER_LIST_NON_CONTACTED(concatUrlBuyerBaseWithComplement("/listNonContactedBuyers")),
     URL_BUYER_LIST_CONTACTED(concatUrlBuyerBaseWithComplement("/listContactedBuyers")),
     URL_BUYER_FIND_BY_VEHICLE(concatUrlBuyerBaseWithComplement("/findBuyersByVehicle")),
-    URL_BUYER_FIND_BY_ID(concatUrlBuyerBaseWithComplement("/findById/{id}"));
+    URL_BUYER_FIND_BY_ID(concatUrlBuyerBaseWithComplement("/findById/{id}")),
+    // ----------------------------------------------------------------------------------
+    URL_AUTH_LOGIN("http://localhost:8082/gateway/auth/login");
 
     private final String urlBase;
 
@@ -31,10 +30,14 @@ public enum APIUtil {
     }
 
     private static String concatUrlVehicleBaseWithComplement(String complement) {
-        return APIUtil.URL_VEHICLE_BASE.getUrlBase().concat(complement);
+        return APIUtil.URL_VEHICLE_BASE.getUrl().concat(complement);
     }
 
     private static String concatUrlBuyerBaseWithComplement(String complement) {
-        return APIUtil.URL_BUYER_BASE.getUrlBase().concat(complement);
+        return APIUtil.URL_BUYER_BASE.getUrl().concat(complement);
+    }
+
+    public String getUrl() {
+        return urlBase;
     }
 }
