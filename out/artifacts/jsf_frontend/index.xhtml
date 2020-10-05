@@ -5,14 +5,10 @@
         xmlns:f="http://xmlns.jcp.org/jsf/core"
         xmlns:p="http://primefaces.org/ui"
         template="WEB-INF/template/layout.xhtml">
-    <h:head>
-        <f:metadata>
-            <f:viewAction action="#{indexBean.init}"/>
-        </f:metadata>
-    </h:head>
+    <f:metadata>
+        <f:viewAction action="#{indexBean.init}"/>
+    </f:metadata>
     <ui:define name="content">
-        <h:form>
-            <h:commandButton value="TEstar" actionListener="#{indexBean.test()}"/>
-        </h:form>
+        <h:outputText value="Hello World"/>
     </ui:define>
 </ui:composition>

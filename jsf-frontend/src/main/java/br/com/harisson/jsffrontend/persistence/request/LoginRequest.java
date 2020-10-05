@@ -32,7 +32,7 @@ public class LoginRequest implements Serializable {
     }
 
     @ExceptionUnauthorized
-    public Map<String, Object> loginReturnMapWithTokenAndExpirationTime(String username, String password) {
+    public Map<String, String> loginReturnMapWithTokenAndExpirationTime(String username, String password) {
         ResponseEntity<Object> exchange = restTemplate.exchange(URL_AUTH_LOGIN.getUrl(),
                 POST,
                 new HttpEntity<>(jsonUtil.buildStringLoginJson(username, password), jsonUtil.createJsonHeader()),
@@ -41,10 +41,10 @@ public class LoginRequest implements Serializable {
         return createMapWithTokenAndExpirationTime(exchange);
     }
 
-    private Map<String, Object> createMapWithTokenAndExpirationTime(ResponseEntity<Object> exchange) {
+    private Map<String, String> createMapWithTokenAndExpirationTime(ResponseEntity<Object> exchange) {
         HttpHeaders headers = exchange.getHeaders();
 
-        Map<String, Object> mapListTokenAndExpirationTime = new LinkedHashMap<>();
+        Map<String, String> mapListTokenAndExpirationTime = new LinkedHashMap<>();
 
         mapListTokenAndExpirationTime.put(NAME_TOKEN_HEADER.getHeaderName(), headers.getFirst(jwtConfiguration.getHeader().getNameHeaderAuth()));
         mapListTokenAndExpirationTime.put(NAME_EXPTIME_HEADER.getHeaderName(), headers.getFirst(jwtConfiguration.getHeader().getNameHeaderExpTime()));
