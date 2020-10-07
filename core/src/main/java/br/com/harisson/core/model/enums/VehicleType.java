@@ -1,5 +1,7 @@
 package br.com.harisson.core.model.enums;
 
+import java.nio.charset.StandardCharsets;
+
 public enum VehicleType {
     TRUCK("Caminhões"),
     TRAILER_AND_BODYWORK("Carretas e Carrocerias"),
@@ -16,6 +18,6 @@ public enum VehicleType {
     }
 
     public String getVehicleType() {
-        return baseStringVehicleType;
+        return new String(baseStringVehicleType.getBytes(), StandardCharsets.UTF_8);
     }
 }

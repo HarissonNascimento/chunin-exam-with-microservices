@@ -1,7 +1,9 @@
 package br.com.harisson.core.model.enums;
 
+import java.nio.charset.StandardCharsets;
+
 public enum FuelType {
-    ALCOHOL("Álcool"),
+    ETHANOL("Etanol"),
     DIESEL("Diesel"),
     ELECTRIC("Elétrico"),
     FLEX("Flex"),
@@ -16,6 +18,6 @@ public enum FuelType {
     }
 
     public String getFuelType() {
-        return baseStringFuelType;
+        return new String(baseStringFuelType.getBytes(), StandardCharsets.UTF_8);
     }
 }

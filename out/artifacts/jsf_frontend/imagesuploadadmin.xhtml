@@ -1,0 +1,98 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        template="WEB-INF/template/layout.xhtml">
+    <f:metadata>
+        <f:viewAction action="#{imagesUploadBean.init}"/>
+    </f:metadata>
+    <ui:define name="content">
+
+        <h:inputHidden value="#{flash.keep}"/><br/>
+        <h:inputHidden value="#{flash.vehicle}"/><br/>
+
+        <h:outputStylesheet library="default" name="css/style.css"/>
+
+        <h:form enctype="multipart/form-data">
+
+            <div class="ui-g">
+                <div class="ui-g-12" style="background: #007ad9">
+
+                    <h:outputText value="Está quase pronto"
+                                  style="font-weight: bold; font-size: xx-large; color: white"/>
+                    <br/>
+                    <h:outputText value="Agora você deve selecionar uma ou mais imagens para o veículo."
+                                  style="font-size: medium; color: white"/>
+
+                </div>
+                <div class="ui-g-6">
+
+                    <h:outputText value="#{imagesUploadBean.vehicle.vehicleManufacturer}"
+                                  style="font-weight: bold; font-size: xx-large"/>
+
+                    <p:spacer width="10" height="10"/>
+
+                    <h:outputText value="#{imagesUploadBean.vehicle.model}"
+                                  style="font-weight: bold; font-size: xx-large"/>
+
+                    <p:separator/>
+
+                    <h:outputText value="R$ #{imagesUploadBean.vehicle.price}"
+                                  style="font-weight: bold; font-size: xx-large"/>
+
+                    <p:separator/>
+
+                    <h:outputText value="Ano #{imagesUploadBean.vehicle.year} "
+                                  style="font-weight:bold;font-size: large"/>
+
+                    <br/><br/>
+
+                    <h:outputText value="Tansmissão: #{imagesUploadBean.vehicle.transmissionType}"
+                                  style="font-weight: bold;font-size: large"/>
+
+                    <br/><br/>
+
+                    <h:outputText value="Combustivel: #{imagesUploadBean.vehicle.fuelType}"
+                                  style="font-weight: bold;font-size: large"/>
+
+                    <br/><br/>
+
+                    <div class="ui-g-6" style="background: #ffffff">
+
+                        <h:outputText value="Descrição" style="font-weight: bold;font-size: large"/><br/>
+                        <h:outputText value="#{imagesUploadBean.vehicle.description}" style="font-size: medium"/>
+
+                    </div>
+                </div>
+                <div class="ui-g-6" style="background: #ffffff">
+
+                    <p:galleria id="galeria" value="#{imagesUploadBean.uploadImagesUtil.listNameFilesToUpload}" panelHeight="313"
+                                panelWidth="500"
+                                var="image" style="background: #ffffff" rendered="true">
+                        <p:graphicImage styleClass="container2" library="default"
+                                        name="images/#{imagesUploadBean.vehicle.imagesFolderDirectory}/#{image}"/>
+                    </p:galleria>
+
+                    <p:fileUpload value="#{imagesUploadBean.filesToUpload}"
+                                  mode="simple"
+                                  skinSimple="true"
+                                  multiple="true"
+                                  validator="#{validator.validateFile}"
+                                  label="Selecionar"/>
+
+                    <br/>
+                    <p:commandButton value="Fazer Upload" actionListener="#{imagesUploadBean.uploadImages}" ajax="false"
+                                     update="galeria"/>
+
+                </div>
+            </div>
+
+            <p:commandButton value="Concluir" action="#{imagesUploadBean.saveVehicle}" iconPos="right" icon="pi pi-check"
+                             disabled="#{imagesUploadBean.buttonDisabled}"/>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>
