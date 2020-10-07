@@ -13,9 +13,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import static br.com.harisson.jsffrontend.util.APIUtil.*;
+import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.toList;
 import static org.springframework.http.HttpMethod.*;
 
 public class VehicleRequest implements Serializable {
@@ -29,11 +32,11 @@ public class VehicleRequest implements Serializable {
     }
 
     public List<Vehicle> listAllVehicles() {
-        return listFromBodyResponseEntityGetRequestNoParameter(URL_VEHICLE_LIST_ALL.getUrl());
+        return returnOrderedList(listFromBodyResponseEntityGetRequestNoParameter(URL_VEHICLE_LIST_ALL.getUrl()));
     }
 
     public List<Vehicle> listVehiclesInStock() {
-        return listFromBodyResponseEntityGetRequestNoParameter(URL_VEHICLE_LIST_IN_STOCK.getUrl());
+        return returnOrderedList(listFromBodyResponseEntityGetRequestNoParameter(URL_VEHICLE_LIST_IN_STOCK.getUrl()));
     }
 
     public List<Vehicle> listSoldVehicles() {
@@ -41,7 +44,7 @@ public class VehicleRequest implements Serializable {
     }
 
     public List<Vehicle> listVehiclesByModel(String model) {
-        return listFromBodyResponseEntityGetRequestParameter(URL_VEHICLE_LIST_BY_MODEL.getUrl(), model);
+        return returnOrderedList(listFromBodyResponseEntityGetRequestParameter(URL_VEHICLE_LIST_BY_MODEL.getUrl(), model));
     }
 
     public Vehicle findById(Long id) {
@@ -92,5 +95,15 @@ public class VehicleRequest implements Serializable {
                 new ParameterizedTypeReference<>() {
                 });
         return exchange.getBody();
+    }
+
+    private List<Vehicle> returnOrderedList(List<Vehicle> list) {
+        if (!list.isEmpty()) {
+            return list.stream()
+                    .sorted(comparing(Vehicle::getId).reversed())
+                    .collect(toList());
+        }
+        return new ArrayList<>();
+
     }
 }

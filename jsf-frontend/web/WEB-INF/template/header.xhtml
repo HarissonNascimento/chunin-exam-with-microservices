@@ -23,8 +23,11 @@
                                      rendered="#{loginBean.logged}"/>
                     <div class="ui-g-12 ui-md-4">
                         <div class="ui-inputgroup">
-                            <p:inputText placeholder="Procurar"/>
-                            <p:commandButton icon="pi pi-search" styleClass="white-button"/>
+                            <p:inputText value="#{searchBean.model}"
+                                         placeholder="Procurar"/>
+                            <p:commandButton icon="pi pi-search"
+                                             styleClass="white-button"
+                                             action="#{searchBean.searchByModel}"/>
                         </div>
                     </div>
                 </h:panelGrid>
@@ -38,9 +41,11 @@
                 <p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom">
                     <p:submenu label="Painel">
                         <p:menuitem value="Novo veículo"
+                                    action="newvehicleadmin.xhtml?faces-redirect=true"
                                     ajax="false"
                                     icon="pi pi-plus-circle"/>
                         <p:menuitem value="Veículos a venda"
+                                    action="searchresult.xhtml?faces-redirect=true"
                                     ajax="false"
                                     icon="pi pi-list"/>
                         <p:menuitem value="Home" ajax="false"

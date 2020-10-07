@@ -38,7 +38,7 @@ public class UploadImagesUtil implements Serializable {
         for (UploadedFile uf : filesToUpload.getFiles()) {
             if (!checkIfFileExistsInDirectory(uf.getFileName(), listNameFilesToUpload)) {
                 listNameFilesToUpload = returnListUpdatedWithImageNamesOrIOException(file, uf);
-            }else {
+            } else {
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
                         "Já existe um arquivo com esse nome.",
                         "");
@@ -50,8 +50,12 @@ public class UploadImagesUtil implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public boolean checkFolderContainsOneOrMoreFiles(){
+    public boolean checkFolderContainsOneOrMoreFiles() {
         return listNameFilesToUpload.isEmpty();
+    }
+
+    public void setThumbnailName(Vehicle vehicle) {
+        vehicle.setThumbnailName(listNameFilesToUpload.get(0));
     }
 
     private boolean checkIfFileExistsInDirectory(String fileName, List<String> listNameFilesInDirectory) {

@@ -22,7 +22,9 @@
 
                     <h:outputText value="Está quase pronto"
                                   style="font-weight: bold; font-size: xx-large; color: white"/>
+
                     <br/>
+
                     <h:outputText value="Agora você deve selecionar uma ou mais imagens para o veículo."
                                   style="font-size: medium; color: white"/>
 
@@ -62,16 +64,22 @@
                     <div class="ui-g-6" style="background: #ffffff">
 
                         <h:outputText value="Descrição" style="font-weight: bold;font-size: large"/><br/>
-                        <h:outputText value="#{imagesUploadBean.vehicle.description}" style="font-size: medium"/>
+                        <h:outputText value="#{imagesUploadBean.vehicle.description}"
+                                      style="font-size: medium"/>
 
                     </div>
                 </div>
                 <div class="ui-g-6" style="background: #ffffff">
 
-                    <p:galleria id="galeria" value="#{imagesUploadBean.uploadImagesUtil.listNameFilesToUpload}" panelHeight="313"
+                    <p:galleria id="gallery"
+                                value="#{imagesUploadBean.uploadImagesUtil.listNameFilesToUpload}"
+                                panelHeight="313"
                                 panelWidth="500"
-                                var="image" style="background: #ffffff" rendered="true">
-                        <p:graphicImage styleClass="container2" library="default"
+                                var="image"
+                                style="background: #ffffff"
+                                rendered="true">
+                        <p:graphicImage styleClass="container2"
+                                        library="default"
                                         name="images/#{imagesUploadBean.vehicle.imagesFolderDirectory}/#{image}"/>
                     </p:galleria>
 
@@ -83,13 +91,19 @@
                                   label="Selecionar"/>
 
                     <br/>
-                    <p:commandButton value="Fazer Upload" actionListener="#{imagesUploadBean.uploadImages}" ajax="false"
-                                     update="galeria"/>
+
+                    <p:commandButton value="Fazer Upload"
+                                     actionListener="#{imagesUploadBean.uploadImages}"
+                                     ajax="false"
+                                     update="gallery"/>
 
                 </div>
             </div>
 
-            <p:commandButton value="Concluir" action="#{imagesUploadBean.saveVehicle}" iconPos="right" icon="pi pi-check"
+            <p:commandButton value="Concluir"
+                             action="#{imagesUploadBean.saveVehicle}"
+                             iconPos="right"
+                             icon="pi pi-check"
                              disabled="#{imagesUploadBean.buttonDisabled}"/>
 
         </h:form>

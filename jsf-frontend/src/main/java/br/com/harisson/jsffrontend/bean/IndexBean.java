@@ -13,8 +13,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import static br.com.harisson.core.model.enums.VehicleType.*;
-import static java.util.Comparator.comparing;
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toList;
 
 @Getter
 @Setter
@@ -32,48 +31,45 @@ public class IndexBean implements Serializable {
         this.externalContext = externalContext;
     }
 
-    public void init(){
-        vehicleList = vehicleRequest.listVehiclesInStock()
-                .stream()
-                .sorted(comparing(Vehicle::getId))
-                .collect(toList());
+    public void init() {
+        vehicleList = vehicleRequest.listVehiclesInStock();
     }
 
-    public List<Vehicle> getListCarsAndUltilitaries(){
+    public List<Vehicle> getListCarsAndUltilitaries() {
         return getVehicleListByType(vehicleList, CARS_AND_ULTILITARIES.getVehicleType());
     }
 
-    public List<Vehicle> getListMotorcyclesAndQuadricycles(){
+    public List<Vehicle> getListMotorcyclesAndQuadricycles() {
         return getVehicleListByType(vehicleList, MOTORCYCLES_AND_QUADRICYCLES.getVehicleType());
     }
 
-    public List<Vehicle> getListTruck(){
+    public List<Vehicle> getListTruck() {
         return getVehicleListByType(vehicleList, TRUCK.getVehicleType());
     }
 
-    public List<Vehicle> getTrailerAndBodywork(){
+    public List<Vehicle> getTrailerAndBodywork() {
         return getVehicleListByType(vehicleList, TRAILER_AND_BODYWORK.getVehicleType());
     }
 
-    public List<Vehicle> getBusesAndVans(){
+    public List<Vehicle> getBusesAndVans() {
         return getVehicleListByType(vehicleList, BUSES_AND_VANS.getVehicleType());
     }
 
-    public List<Vehicle> getNautical(){
+    public List<Vehicle> getNautical() {
         return getVehicleListByType(vehicleList, NAUTICAL.getVehicleType());
     }
 
-    public List<Vehicle> getOtherTypes(){
+    public List<Vehicle> getOtherTypes() {
         return getVehicleListByType(vehicleList, OTHERS.getVehicleType());
     }
 
-    public List<Vehicle> announcementVehicles(){
+    public List<Vehicle> announcementVehicles() {
         return vehicleList.stream()
                 .limit(9)
                 .collect(toList());
     }
 
-    private List<Vehicle> getVehicleListByType(List<Vehicle> list, String type){
+    private List<Vehicle> getVehicleListByType(List<Vehicle> list, String type) {
         return list.stream()
                 .filter(v -> v.getVehicleType().equals(type))
                 .collect(toList());

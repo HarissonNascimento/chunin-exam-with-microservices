@@ -7,9 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.model.file.UploadedFiles;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -35,24 +33,25 @@ public class ImagesUploadBean implements Serializable {
         this.vehicleRequest = vehicleRequest;
     }
 
-    public void init(){
+    public void init() {
         Flash flash = externalContext.getFlash();
         vehicle = (Vehicle) flash.get("vehicle");
     }
 
-    public String saveVehicle(){
+    public String saveVehicle() {
+        uploadImagesUtil.setThumbnailName(vehicle);
         vehicleRequest.saveVehicle(vehicle);
-        return "";
+        return "searchresult.xhtml?faces-redirect=true";
     }
 
-    public void uploadImages(){
-        if (filesToUpload != null){
+    public void uploadImages() {
+        if (filesToUpload != null) {
             File file = new File(uploadImagesUtil.getVehicleImagesDirectoryName(vehicle, externalContext));
             uploadImagesUtil.uploadImagesToFolder(filesToUpload, file);
         }
     }
 
-    public boolean isButtonDisabled(){
+    public boolean isButtonDisabled() {
         return uploadImagesUtil.checkFolderContainsOneOrMoreFiles();
     }
 }

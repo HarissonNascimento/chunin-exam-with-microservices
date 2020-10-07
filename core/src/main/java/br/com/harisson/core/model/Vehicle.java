@@ -55,6 +55,9 @@ public class Vehicle implements AbstractEntity {
     @Column(length = 60)
     private String imagesFolderDirectory;
 
+    @Column(length = 60)
+    private String thumbnailName;
+
     @Column(columnDefinition = "boolean default false")
     private boolean isSold;
 }
