@@ -19,7 +19,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class UploadImagesUtil implements Serializable {
+public class ImagesUtil implements Serializable {
     private List<String> listNameFilesToUpload = new ArrayList<>();
 
     public String getVehicleImagesDirectoryName(Vehicle vehicle, ExternalContext externalContext) {
@@ -58,6 +58,20 @@ public class UploadImagesUtil implements Serializable {
         vehicle.setThumbnailName(listNameFilesToUpload.get(0));
     }
 
+    public List<String> listNamesOfImagesInDirectory(File file) {
+        boolean dir = file.mkdir();
+        if (!dir) {
+            List<String> fileNameList = new ArrayList<>();
+            File[] fileList = file.listFiles();
+            for (File f : fileList) {
+                fileNameList.add(f.getName());
+            }
+            return fileNameList;
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
     private boolean checkIfFileExistsInDirectory(String fileName, List<String> listNameFilesInDirectory) {
         return listNameFilesInDirectory.contains(fileName);
     }
@@ -70,20 +84,6 @@ public class UploadImagesUtil implements Serializable {
             return listNamesOfImagesInDirectory(file);
         } catch (IOException e) {
             e.printStackTrace();
-            return new ArrayList<>();
-        }
-    }
-
-    private List<String> listNamesOfImagesInDirectory(File file) {
-        boolean dir = file.mkdir();
-        if (!dir) {
-            List<String> fileNameList = new ArrayList<>();
-            File[] fileList = file.listFiles();
-            for (File f : fileList) {
-                fileNameList.add(f.getName());
-            }
-            return fileNameList;
-        } else {
             return new ArrayList<>();
         }
     }

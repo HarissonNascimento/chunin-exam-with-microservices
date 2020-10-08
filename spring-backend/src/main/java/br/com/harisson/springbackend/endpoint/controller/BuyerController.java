@@ -37,10 +37,9 @@ public class BuyerController {
         return ResponseEntity.ok(buyerService.listContactedBuyers());
     }
 
-    @GetMapping(path = "/findBuyersByVehicle", produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Buyer>> findBuyersByVehicle(@RequestBody @Valid Vehicle vehicle) {
-        return ResponseEntity.ok(buyerService.findBuyersByVehicle(vehicle));
+    @GetMapping(path = "/findBuyersByVehicleId/{vehicleId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Buyer>> findBuyersByVehicleId(@PathVariable Long vehicleId) {
+        return ResponseEntity.ok(buyerService.findBuyersByVehicleId(vehicleId));
     }
 
     @GetMapping(path = "/findById/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

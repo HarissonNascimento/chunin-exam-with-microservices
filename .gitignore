@@ -4,7 +4,7 @@ target/
 .mvn
 !**/src/main/**/target/
 !**/src/test/**/target/
-/out/artifacts/jsf_frontend/resources/default/images/**/
+/out/
 
 ### STS ###
 .apt_generated
@@ -33,4 +33,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
 

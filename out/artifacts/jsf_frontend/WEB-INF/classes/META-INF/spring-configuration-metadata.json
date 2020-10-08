@@ -20,22 +20,6 @@
       "defaultValue": 86400000
     },
     {
-      "name": "jwt.config.header.name-header-auth",
-      "type": "java.lang.String",
-      "sourceType": "br.com.harisson.core.property.JwtConfiguration$Header"
-    },
-    {
-      "name": "jwt.config.header.name-header-exp-time",
-      "type": "java.lang.String",
-      "sourceType": "br.com.harisson.core.property.JwtConfiguration$Header"
-    },
-    {
-      "name": "jwt.config.header.prefix",
-      "type": "java.lang.String",
-      "sourceType": "br.com.harisson.core.property.JwtConfiguration$Header",
-      "defaultValue": "Bearer "
-    },
-    {
       "name": "jwt.config.login-url",
       "type": "java.lang.String",
       "sourceType": "br.com.harisson.core.property.JwtConfiguration",

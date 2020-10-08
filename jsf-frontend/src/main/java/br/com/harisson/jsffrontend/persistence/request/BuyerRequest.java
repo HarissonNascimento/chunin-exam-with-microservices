@@ -39,8 +39,8 @@ public class BuyerRequest implements Serializable {
         return listFromBodyResponseEntityGetRequestNoParameter(URL_BUYER_LIST_CONTACTED.getUrl());
     }
 
-    public List<Buyer> findBuyersByVehicle(Vehicle vehicle) {
-        return listFromBodyResponseEntityGetRequestParameter(URL_BUYER_FIND_BY_VEHICLE.getUrl(), vehicle);
+    public List<Buyer> findBuyersByVehicleId(Long vehicleId) {
+        return listFromBodyResponseEntityGetRequestParameter(URL_BUYER_FIND_BY_VEHICLE_ID.getUrl(), vehicleId);
     }
 
     public Buyer findById(Long id) {
@@ -84,11 +84,11 @@ public class BuyerRequest implements Serializable {
         return exchange.getBody();
     }
 
-    private List<Buyer> listFromBodyResponseEntityGetRequestParameter(String url, Vehicle vehicle) {
+    private List<Buyer> listFromBodyResponseEntityGetRequestParameter(String url, Long vehicleId) {
         ResponseEntity<List<Buyer>> exchange = restTemplate.exchange(url,
-                GET, new HttpEntity<>(vehicle, jsonUtil.createJsonHeader()),
+                GET, new HttpEntity<>(url, jsonUtil.createJsonHeader()),
                 new ParameterizedTypeReference<>() {
-                });
+                }, vehicleId);
         return exchange.getBody();
     }
 

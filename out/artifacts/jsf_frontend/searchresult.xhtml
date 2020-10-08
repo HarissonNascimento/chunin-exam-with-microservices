@@ -70,6 +70,7 @@
                                      bodyrows="1">
                             
                             <p:commandButton value="Mais Detalhes"
+                                             action="#{searchResultBean.vehicleDetails()}"
                                              icon="pi pi-list"
                                              iconPos="right">
                                 <f:setPropertyActionListener target="#{searchResultBean.selectedVehicle}"
@@ -77,6 +78,7 @@
                             </p:commandButton>
 
                             <p:commandButton value="Deletar"
+                                             action="#{searchResultBean.deleteVehicle()}"
                                              icon="pi pi-times"
                                              iconPos="right"
                                              rendered="#{loginBean.logged}">

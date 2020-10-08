@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.faces.context.ExternalContext;
+import javax.faces.context.Flash;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -35,7 +36,9 @@ public class SearchResultBean implements Serializable {
     }
 
     public String vehicleDetails(){
-        return "";
+        Flash flash = externalContext.getFlash();
+        flash.put("vehicle", selectedVehicle);
+        return "vehicledetails.xhtml?faces-redirect=true";
     }
 
     public String deleteVehicle(){

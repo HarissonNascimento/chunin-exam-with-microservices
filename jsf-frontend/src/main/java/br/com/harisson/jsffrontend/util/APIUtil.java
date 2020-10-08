@@ -18,7 +18,7 @@ public enum APIUtil {
     URL_BUYER_LIST_ALL(concatUrlBuyerBaseWithComplement("/listAllBuyers")),
     URL_BUYER_LIST_NON_CONTACTED(concatUrlBuyerBaseWithComplement("/listNonContactedBuyers")),
     URL_BUYER_LIST_CONTACTED(concatUrlBuyerBaseWithComplement("/listContactedBuyers")),
-    URL_BUYER_FIND_BY_VEHICLE(concatUrlBuyerBaseWithComplement("/findBuyersByVehicle")),
+    URL_BUYER_FIND_BY_VEHICLE_ID(concatUrlBuyerBaseWithComplement("/findBuyersByVehicleId/{vehicleId}")),
     URL_BUYER_FIND_BY_ID(concatUrlBuyerBaseWithComplement("/findById/{id}")),
     // ----------------------------------------------------------------------------------
     URL_AUTH_LOGIN("http://localhost:8082/gateway/auth/login");

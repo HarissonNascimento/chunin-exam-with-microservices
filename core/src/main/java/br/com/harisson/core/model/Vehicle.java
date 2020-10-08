@@ -58,6 +58,9 @@ public class Vehicle implements AbstractEntity {
     @Column(length = 60)
     private String thumbnailName;
 
+    @Column
+    private Long buyerId;
+
     @Column(columnDefinition = "boolean default false")
     private boolean isSold;
 }

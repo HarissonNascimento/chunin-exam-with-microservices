@@ -37,9 +37,9 @@ public class BuyerService {
         return buyerRepository.listContactedBuyers();
     }
 
-    public List<Buyer> findBuyersByVehicle(Vehicle vehicle){
-        log.info("Listing buyers by vehicle");
-        return buyerRepository.findBuyersByVehicle(vehicle);
+    public List<Buyer> findBuyersByVehicleId(Long vehicleId){
+        log.info("Listing buyers by vehicle id");
+        return buyerRepository.findBuyersByVehicleId(vehicleId);
     }
 
     public Buyer findById(Long id){

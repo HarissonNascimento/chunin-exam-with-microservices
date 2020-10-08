@@ -2,7 +2,7 @@ package br.com.harisson.jsffrontend.bean;
 
 import br.com.harisson.core.model.Vehicle;
 import br.com.harisson.jsffrontend.persistence.request.VehicleRequest;
-import br.com.harisson.jsffrontend.util.UploadImagesUtil;
+import br.com.harisson.jsffrontend.util.ImagesUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.model.file.UploadedFiles;
@@ -23,13 +23,13 @@ public class ImagesUploadBean implements Serializable {
     private Vehicle vehicle;
     private UploadedFiles filesToUpload;
     private final ExternalContext externalContext;
-    private final UploadImagesUtil uploadImagesUtil;
+    private final ImagesUtil imagesUtil;
     private final VehicleRequest vehicleRequest;
 
     @Inject
-    public ImagesUploadBean(ExternalContext externalContext, UploadImagesUtil uploadImagesUtil, VehicleRequest vehicleRequest) {
+    public ImagesUploadBean(ExternalContext externalContext, ImagesUtil imagesUtil, VehicleRequest vehicleRequest) {
         this.externalContext = externalContext;
-        this.uploadImagesUtil = uploadImagesUtil;
+        this.imagesUtil = imagesUtil;
         this.vehicleRequest = vehicleRequest;
     }
 
@@ -39,19 +39,19 @@ public class ImagesUploadBean implements Serializable {
     }
 
     public String saveVehicle() {
-        uploadImagesUtil.setThumbnailName(vehicle);
+        imagesUtil.setThumbnailName(vehicle);
         vehicleRequest.saveVehicle(vehicle);
         return "searchresult.xhtml?faces-redirect=true";
     }
 
     public void uploadImages() {
         if (filesToUpload != null) {
-            File file = new File(uploadImagesUtil.getVehicleImagesDirectoryName(vehicle, externalContext));
-            uploadImagesUtil.uploadImagesToFolder(filesToUpload, file);
+            File file = new File(imagesUtil.getVehicleImagesDirectoryName(vehicle, externalContext));
+            imagesUtil.uploadImagesToFolder(filesToUpload, file);
         }
     }
 
     public boolean isButtonDisabled() {
-        return uploadImagesUtil.checkFolderContainsOneOrMoreFiles();
+        return imagesUtil.checkFolderContainsOneOrMoreFiles();
     }
 }
