@@ -13,28 +13,30 @@
 
             <f:facet name="left">
                 <h:panelGrid columns="4">
+
                     <p:commandButton value="Home"
-                                     action="index?faces-redirect=true"
-                                     icon="pi pi-home"
-                                     rendered="#{not loginBean.logged}"/>
-                    <p:commandButton value="Home"
-                                     action="adminpage?faces-redirect=true"
-                                     icon="pi pi-home"
-                                     rendered="#{loginBean.logged}"/>
+                                     action="index.xhtml?faces-redirect=true"
+                                     icon="pi pi-home"/>
+
                     <div class="ui-g-12 ui-md-4">
                         <div class="ui-inputgroup">
+
                             <p:inputText value="#{searchBean.model}"
                                          placeholder="Procurar"/>
                             <p:commandButton icon="pi pi-search"
                                              styleClass="white-button"
                                              action="#{searchBean.searchByModel}"/>
+
                         </div>
                     </div>
+
                 </h:panelGrid>
+
             </f:facet>
             <f:facet name="right">
+
                 <p:commandButton id="dynaButton"
-                                 value="Painel Administrativo"
+                                 value="Opções de gerenciamento"
                                  type="button"
                                  icon="pi pi-pencil"
                                  rendered="#{loginBean.logged}"/>
@@ -48,14 +50,18 @@
                                     action="searchresult.xhtml?faces-redirect=true"
                                     ajax="false"
                                     icon="pi pi-list"/>
-                        <p:menuitem value="Home" ajax="false"
+                        <p:menuitem value="Painel Admin."
+                                    action="adminpage.xhtml?faces-redirect=true"
+                                    ajax="false"
                                     icon="pi pi-home"/>
                     </p:submenu>
                 </p:menu>
+
                 <p:commandButton value="#{loginBean.statusUser}" action="login.xhtml?faces-redirect=true"
                                  icon="pi pi-sign-in" rendered="#{not loginBean.logged}"/>
                 <p:commandButton value="#{loginBean.statusUser}" action="#{loginBean.logout}"
                                  icon="pi pi-sign-in" rendered="#{loginBean.logged}"/>
+
             </f:facet>
 
         </p:toolbar>
