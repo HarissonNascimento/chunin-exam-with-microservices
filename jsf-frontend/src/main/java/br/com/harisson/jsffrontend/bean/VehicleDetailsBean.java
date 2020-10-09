@@ -62,7 +62,10 @@ public class VehicleDetailsBean implements Serializable {
     }
 
     public String buyVehicle(){
-        return "";
+        buyer.setVehicle(selectedVehicle);
+        Flash flash = externalContext.getFlash();
+        flash.put("buyer", buyer);
+        return "registernewbuyer.xhtml?faces-redirect=true";
     }
 
     private void setBuyerForVehicle(){

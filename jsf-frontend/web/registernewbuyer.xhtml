@@ -1,0 +1,106 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        template="WEB-INF/template/layout.xhtml">
+    <f:metadata>
+        <f:viewAction action="#{registerNewBuyerBean.init}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <h:inputHidden value="#{flash.keep}"/><br/>
+        <h:inputHidden value="#{flash.buyer}"/><br/>
+
+        <h:outputStylesheet library="default"
+                            name="css/style.css"/>
+
+        <h:form>
+
+            <p:wizard flowListener="#{registerNewBuyerBean.onFlowProcess}">
+
+                <p:tab id="register"
+                       title="Registro">
+
+                    <p:panel header="Dados para contato">
+
+                        <h:panelGrid columns="2"
+                                     columnClasses="label, value2">
+
+                            <h:outputText value="Nome: "/>
+                            <p:inputText value="#{registerNewBuyerBean.newBuyer.name}"
+                                         required="true"
+                                         requiredMessage="O campo nome é obrigatório"
+                                         label="Nome"/>
+
+                            <h:outputText value="DDD+Telefone: "/>
+                            <p:inputText value="#{registerNewBuyerBean.newBuyer.numberPhone}"
+                                         required="true"
+                                         requiredMessage="O campo telefone é obrigatório"
+                                         label="Telefone">
+                                <p:keyFilter regEx="/[\d\-\.]/"/>
+                            </p:inputText>
+
+                        </h:panelGrid>
+
+                    </p:panel>
+
+                </p:tab>
+
+                <p:tab id="confirm"
+                       title="Confirmação">
+
+                    <p:panel header="Os dados abaixo estão corretos?">
+
+                        <h:panelGrid id="confirmation"
+                                     columns="2"
+                                     columnClasses="grid, grid">
+
+                            <h:outputText value="Nome: "/>
+                            <h:outputText value="#{registerNewBuyerBean.newBuyer.name}"
+                                          styleClass="outputLabel"/>
+
+                            <h:outputText value="DDD+Telefone: "/>
+                            <h:outputText value="#{registerNewBuyerBean.newBuyer.numberPhone}"
+                                          styleClass="outputLabel"/>
+
+                            <h:outputText value="Veículo: "/>
+                            <h:outputText value="#{registerNewBuyerBean.newBuyer.vehicle.model}"
+                                          styleClass="outputLabel"/>
+
+                        </h:panelGrid>
+
+                    </p:panel>
+
+                </p:tab>
+
+                <p:tab id="finish"
+                       title="Finalizar">
+
+                    <p:panel header="Finalizar">
+
+                        <p:panelGrid columns="1">
+
+                            <h:outputText
+                                    value="Muito bem #{registerNewBuyerBean.newBuyer.name}, agora é só confirmar no botão abaixo que um de nossos vendedores entrará em contato com você em breve"
+                                    style="font-weight: bold"/>
+
+                        </p:panelGrid>
+
+                        <p:commandButton value="Confirmar"
+                                         action="#{registerNewBuyerBean.saveBuyer}"
+                                         process="@this"/><br/>
+                        <h:outputText
+                                value="Ao clicar em confirmar você será redirecionado para página inicial em 5 segundos"/>
+
+                    </p:panel>
+
+                </p:tab>
+
+            </p:wizard>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

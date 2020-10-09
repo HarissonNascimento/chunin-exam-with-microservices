@@ -1,7 +1,6 @@
 package br.com.harisson.springbackend.endpoint.controller;
 
 import br.com.harisson.core.model.Buyer;
-import br.com.harisson.core.model.Vehicle;
 import br.com.harisson.springbackend.endpoint.service.BuyerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -39,7 +39,7 @@ public class AdminPageBean implements Serializable {
     public String vehicleDetails() {
         Flash flash = externalContext.getFlash();
         flash.put("vehicle", selectedVehicle);
-        return "adminpage.xhtml?faces-redirect=true";
+        return "vehicledetails.xhtml?faces-redirect=true";
     }
 
     public String deleteVehicle() {
