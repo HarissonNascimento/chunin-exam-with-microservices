@@ -15,66 +15,67 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 @Getter
 @Setter
 @Named
 @ViewScoped
-public class SearchResultBean implements Serializable {
-    private List<Vehicle> listVehicles;
-    private Vehicle selectedVehicle;
+public class AdminPageBean implements Serializable {
     private final VehicleRequest vehicleRequest;
     private final BuyerRequest buyerRequest;
     private final ExternalContext externalContext;
     private final ImagesUtil imagesUtil;
-    private boolean isFound;
+    private Vehicle selectedVehicle;
+    private Buyer selectedBuyer;
 
     @Inject
-    public SearchResultBean(VehicleRequest vehicleRequest, BuyerRequest buyerRequest, ExternalContext externalContext, ImagesUtil imagesUtil) {
+    public AdminPageBean(VehicleRequest vehicleRequest, BuyerRequest buyerRequest, ExternalContext externalContext, ImagesUtil imagesUtil) {
         this.vehicleRequest = vehicleRequest;
         this.buyerRequest = buyerRequest;
         this.externalContext = externalContext;
         this.imagesUtil = imagesUtil;
     }
 
-    public void init() {
-        listOfSearchedVehiclesOrVehiclesInStock(getParameterString());
-    }
-
     public String vehicleDetails() {
         Flash flash = externalContext.getFlash();
         flash.put("vehicle", selectedVehicle);
-        return "vehicledetails.xhtml?faces-redirect=true";
+        return "adminpage.xhtml?faces-redirect=true";
     }
 
     public String deleteVehicle() {
         deleteAllBuyersForVehicle(selectedVehicle);
         vehicleRequest.deleteVehicleById(selectedVehicle.getId());
         imagesUtil.deleteVehicleImageFolder(selectedVehicle, externalContext);
-        return "searchresult.xhtml?faces-redirect=true";
+        return "adminpage.xhtml?faces-redirect=true";
     }
 
-    public String getParameterString() {
-        Map<String, String> paramsMap = externalContext.getRequestParameterMap();
-        return paramsMap.get("model");
+    public List<Vehicle> vehiclesInStock() {
+        return vehicleRequest.listVehiclesInStock();
     }
 
-    private void listOfSearchedVehiclesOrVehiclesInStock(String stringSearch) {
-        if (stringSearch == null || stringSearch.equals("")) {
-            listVehicles = vehicleRequest.listVehiclesInStock();
-            return;
+    public List<Vehicle> soldVehicles() {
+        return vehicleRequest.listSoldVehicles();
+    }
+
+    public List<Buyer> contactedBuyers() {
+        return buyerRequest.listContactedBuyers();
+    }
+
+    public List<Buyer> nonContactedBuyers() {
+        return buyerRequest.listNonContactedBuyers();
+    }
+
+    public String markBuyerAsContacted() {
+        return updateSelectedBuyerAfterContacting(selectedBuyer);
+    }
+
+    private String updateSelectedBuyerAfterContacting(Buyer buyer) {
+        if (buyer == null) {
+            return "";
         }
-        listVehicles = listOfVehiclesFoundOrNot(stringSearch);
-    }
-
-    private List<Vehicle> listOfVehiclesFoundOrNot(String model) {
-        List<Vehicle> list = vehicleRequest.listVehiclesByModel(model);
-        if (list.isEmpty()) {
-            isFound = true;
-            return vehicleRequest.listVehiclesInStock();
-        }
-        return list;
+        buyer.setContacted(true);
+        buyerRequest.updateBuyer(buyer);
+        return "adminpage.xhtml?faces-redirect=true";
     }
 
     private void deleteAllBuyersForVehicle(Vehicle vehicle) {
@@ -85,4 +86,5 @@ public class SearchResultBean implements Serializable {
             }
         }
     }
+
 }

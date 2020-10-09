@@ -1,7 +1,6 @@
 package br.com.harisson.jsffrontend.persistence.request;
 
 import br.com.harisson.core.model.Buyer;
-import br.com.harisson.core.model.Vehicle;
 import br.com.harisson.jsffrontend.annotation.ExceptionUnauthorized;
 import br.com.harisson.jsffrontend.custom.CustomRestTemplate;
 import br.com.harisson.jsffrontend.util.JsonUtil;
@@ -12,9 +11,12 @@ import org.springframework.http.ResponseEntity;
 
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import static br.com.harisson.jsffrontend.util.APIUtil.*;
+import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.toList;
 import static org.springframework.http.HttpMethod.*;
 
 public class BuyerRequest implements Serializable {
@@ -28,19 +30,19 @@ public class BuyerRequest implements Serializable {
     }
 
     public List<Buyer> listAllBuyers() {
-        return listFromBodyResponseEntityGetRequestNoParameter(URL_BUYER_LIST_ALL.getUrl());
+        return returnOrderedList(listFromBodyResponseEntityGetRequestNoParameter(URL_BUYER_LIST_ALL.getUrl()));
     }
 
     public List<Buyer> listNonContactedBuyers() {
-        return listFromBodyResponseEntityGetRequestNoParameter(URL_BUYER_LIST_NON_CONTACTED.getUrl());
+        return returnOrderedList(listFromBodyResponseEntityGetRequestNoParameter(URL_BUYER_LIST_NON_CONTACTED.getUrl()));
     }
 
     public List<Buyer> listContactedBuyers() {
-        return listFromBodyResponseEntityGetRequestNoParameter(URL_BUYER_LIST_CONTACTED.getUrl());
+        return returnOrderedList(listFromBodyResponseEntityGetRequestNoParameter(URL_BUYER_LIST_CONTACTED.getUrl()));
     }
 
     public List<Buyer> findBuyersByVehicleId(Long vehicleId) {
-        return listFromBodyResponseEntityGetRequestParameter(URL_BUYER_FIND_BY_VEHICLE_ID.getUrl(), vehicleId);
+        return returnOrderedList(listFromBodyResponseEntityGetRequestParameter(URL_BUYER_FIND_BY_VEHICLE_ID.getUrl(), vehicleId));
     }
 
     public Buyer findById(Long id) {
@@ -90,6 +92,15 @@ public class BuyerRequest implements Serializable {
                 new ParameterizedTypeReference<>() {
                 }, vehicleId);
         return exchange.getBody();
+    }
+
+    private List<Buyer> returnOrderedList(List<Buyer> list) {
+        if (!list.isEmpty()) {
+            return list.stream()
+                    .sorted(comparing(Buyer::getId).reversed())
+                    .collect(toList());
+        }
+        return new ArrayList<>();
     }
 
 }
