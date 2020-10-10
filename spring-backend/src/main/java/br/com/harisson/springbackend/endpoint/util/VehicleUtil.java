@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class VehicleUtil {
-    public Vehicle findVehicleOrThrowNotFound(Long id, VehicleRepository vehicleRepository){
+    public Vehicle findVehicleOrThrowNotFound(Long id, VehicleRepository vehicleRepository) {
         return vehicleRepository
                 .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Vehicle not found"));

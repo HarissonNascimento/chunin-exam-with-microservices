@@ -15,10 +15,9 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static java.util.Arrays.*;
+import static java.util.Arrays.asList;
 
 @Getter
 @Setter
@@ -36,12 +35,12 @@ public class ImagesUtil implements Serializable {
         );
     }
 
-    public void deleteVehicleImageFolder(Vehicle vehicle, ExternalContext externalContext){
+    public void deleteVehicleImageFolder(Vehicle vehicle, ExternalContext externalContext) {
         File file = new File(getVehicleImagesDirectoryName(vehicle, externalContext));
         boolean dir = file.exists();
-        if (dir){
+        if (dir) {
             List<File> fileList = asList(file.listFiles());
-            for (File f : fileList){
+            for (File f : fileList) {
                 f.delete();
             }
             file.delete();

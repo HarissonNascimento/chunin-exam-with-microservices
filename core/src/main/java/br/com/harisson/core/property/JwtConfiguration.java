@@ -28,7 +28,7 @@ public class JwtConfiguration implements Serializable {
 
     @Getter
     @Setter
-    public static class Header{
+    public static class Header {
         private String nameHeaderAuth = NAME_TOKEN_HEADER.getHeaderName();
         private String nameHeaderExpTime = NAME_EXPTIME_HEADER.getHeaderName();
         private String prefix = "Bearer ";

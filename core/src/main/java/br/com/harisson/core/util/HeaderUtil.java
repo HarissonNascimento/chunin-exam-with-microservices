@@ -9,7 +9,7 @@ public enum HeaderUtil {
 
     private final String headerName;
 
-    HeaderUtil(String headerName){
+    HeaderUtil(String headerName) {
         this.headerName = headerName;
     }
 }

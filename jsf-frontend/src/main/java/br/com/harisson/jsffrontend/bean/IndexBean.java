@@ -36,7 +36,7 @@ public class IndexBean implements Serializable {
         vehicleList = vehicleRequest.listVehiclesInStock();
     }
 
-    public String vehicleDetails(){
+    public String vehicleDetails() {
         Flash flash = externalContext.getFlash();
         flash.put("vehicle", selectedVehicle);
         return "vehicledetails.xhtml?faces-redirect=true";

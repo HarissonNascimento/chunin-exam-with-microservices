@@ -30,7 +30,7 @@ public class JwtTokenAuthorizationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         String header = request.getHeader(jwtConfiguration.getHeader().getNameHeaderAuth());
 
-        if (header == null || !header.startsWith(jwtConfiguration.getHeader().getPrefix())){
+        if (header == null || !header.startsWith(jwtConfiguration.getHeader().getPrefix())) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -43,14 +43,14 @@ public class JwtTokenAuthorizationFilter extends OncePerRequestFilter {
     }
 
     @SneakyThrows
-    private SignedJWT decryptValidating(String encryptedToken){
+    private SignedJWT decryptValidating(String encryptedToken) {
         String signedToken = tokenConverter.decryptToken(encryptedToken);
         tokenConverter.validateTokenSignature(signedToken);
         return SignedJWT.parse(signedToken);
     }
 
     @SneakyThrows
-    private SignedJWT validate(String signedToken){
+    private SignedJWT validate(String signedToken) {
         tokenConverter.validateTokenSignature(signedToken);
         return SignedJWT.parse(signedToken);
     }

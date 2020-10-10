@@ -10,7 +10,7 @@ public interface VehicleRepository extends PagingAndSortingRepository<Vehicle, L
 
     Vehicle findVehicleById(Long id);
 
-    @Query("select v from Vehicle v where v.model like %?1%")
+    @Query("select v from Vehicle v where v.model like %?1% and v.isSold = false")
     List<Vehicle> listVehiclesByModel(String model);
 
     @Query("select v from Vehicle v where v.isSold = false")

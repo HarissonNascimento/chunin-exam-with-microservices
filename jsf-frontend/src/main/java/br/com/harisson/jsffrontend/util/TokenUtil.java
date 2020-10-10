@@ -14,13 +14,13 @@ import static br.com.harisson.core.util.HeaderUtil.NAME_TOKEN_HEADER;
 import static java.util.Arrays.asList;
 
 public class TokenUtil {
-    public String getTokenFromCookiesList(HttpServletRequest request){
+    public String getTokenFromCookiesList(HttpServletRequest request) {
         if (request.getCookies() == null) return "";
         List<Cookie> cookieList = asList(request.getCookies());
         return getCookieByKey(cookieList, NAME_TOKEN_HEADER.getHeaderName());
     }
 
-    public boolean isExpirationTimeFromCookieValid(HttpServletRequest request){
+    public boolean isExpirationTimeFromCookieValid(HttpServletRequest request) {
         if (request.getCookies() == null) return false;
         List<Cookie> cookieList = asList(request.getCookies());
         String expirationTime = getCookieByKey(cookieList, NAME_EXPTIME_HEADER.getHeaderName());
@@ -35,7 +35,7 @@ public class TokenUtil {
     }
 
     @SneakyThrows
-    private boolean validateIfTimeNowIsBeforeTokenExpires(String expirationTime){
+    private boolean validateIfTimeNowIsBeforeTokenExpires(String expirationTime) {
         if (expirationTime.isEmpty()) return false;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SS").withZone(ZoneId.of("UTC"));
         LocalDateTime tokenExpirationTime = LocalDateTime.parse(expirationTime, formatter);

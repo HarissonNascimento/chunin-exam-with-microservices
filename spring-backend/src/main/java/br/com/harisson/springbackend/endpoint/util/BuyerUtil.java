@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class BuyerUtil {
-    public Buyer findBuyerOrThrowNotFound(Long id, BuyerRepository buyerRepository){
+    public Buyer findBuyerOrThrowNotFound(Long id, BuyerRepository buyerRepository) {
         return buyerRepository
                 .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Buyer not found"));

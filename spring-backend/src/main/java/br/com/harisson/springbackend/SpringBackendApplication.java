@@ -15,8 +15,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan("br.com.harisson")
 public class SpringBackendApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringBackendApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SpringBackendApplication.class, args);
+    }
 
 }

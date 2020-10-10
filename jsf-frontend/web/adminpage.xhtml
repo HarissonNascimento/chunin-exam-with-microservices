@@ -148,6 +148,14 @@
                                               style="font-weight: bold"/>
                                 <h:outputText value="#{vehicle.fuelType}"/>
 
+                                <h:outputText value="Vendido para"
+                                              style="font-weight: bold"/>
+                                <h:outputText value="#{adminPageBean.buyerRequest.findById(vehicle.buyerId).name}"/>
+
+                                <h:outputText value="Telefone"
+                                              style="font-weight: bold"/>
+                                <h:outputText value="#{adminPageBean.buyerRequest.findById(vehicle.buyerId).numberPhone}"/>
+
                                 <p:separator style="width: 80%; float: left"/>
 
                                 <h:panelGrid columns="3"

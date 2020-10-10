@@ -13,7 +13,7 @@ import java.util.Map;
 
 import static br.com.harisson.core.util.HeaderUtil.NAME_EXPTIME_HEADER;
 import static br.com.harisson.core.util.HeaderUtil.NAME_TOKEN_HEADER;
-import static br.com.harisson.jsffrontend.custom.CustomURLEncoderDecoder.*;
+import static br.com.harisson.jsffrontend.custom.CustomURLEncoderDecoder.encodeUTF8;
 import static br.com.harisson.jsffrontend.model.enums.LoginStatus.LOGGED;
 import static br.com.harisson.jsffrontend.model.enums.LoginStatus.OFF;
 
@@ -35,7 +35,7 @@ public class LoginBean implements Serializable {
         this.externalContext = externalContext;
     }
 
-    public String login(){
+    public String login() {
         Map<String, String> mapWithTokenAndExpirationTime = loginRequest.loginReturnMapWithTokenAndExpirationTime(username, password);
 
         if (mapWithTokenAndExpirationTime == null) return null;
@@ -46,19 +46,19 @@ public class LoginBean implements Serializable {
         return "adminpage.xhtml?faces-redirect=true";
     }
 
-    public String logout(){
+    public String logout() {
         removeTokenAndExpirationTimeFromCookies();
         statusUser = OFF.getLoginStatus();
         logged = false;
         return "login.xhtml?faces-redirect=true";
     }
 
-    private void addTokenAndExpirationTimeToCookies(String token, String expirationTime){
+    private void addTokenAndExpirationTimeToCookies(String token, String expirationTime) {
         externalContext.addResponseCookie(NAME_TOKEN_HEADER.getHeaderName(), encodeUTF8(token), null);
         externalContext.addResponseCookie(NAME_EXPTIME_HEADER.getHeaderName(), expirationTime, null);
     }
 
-    private void removeTokenAndExpirationTimeFromCookies(){
+    private void removeTokenAndExpirationTimeFromCookies() {
         addTokenAndExpirationTimeToCookies(null, null);
     }
 }

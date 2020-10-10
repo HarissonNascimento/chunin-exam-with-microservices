@@ -17,8 +17,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan("br.com.harisson")
 public class AuthApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(AuthApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(AuthApplication.class, args);
+    }
 
 }

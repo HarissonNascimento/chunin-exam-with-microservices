@@ -30,21 +30,21 @@ public class ExceptionUnauthorizedInterceptor implements Serializable {
     @AroundInvoke
     public Object invoke(InvocationContext context) throws IOException {
         Object result = null;
-        try{
+        try {
             result = context.proceed();
-        }catch (Exception e) {
-            if (e instanceof HttpClientErrorException || e instanceof HttpServerErrorException){
+        } catch (Exception e) {
+            if (e instanceof HttpClientErrorException || e instanceof HttpServerErrorException) {
                 HttpStatusCodeException httpException = (HttpStatusCodeException) e;
                 ErrorDetail errorDetail = new CustomObjectMapper().readValue(httpException.getResponseBodyAsString(), ErrorDetail.class);
                 addMessage(FacesMessage.SEVERITY_ERROR, errorDetail.getMessage(), true);
-            }else {
+            } else {
                 e.printStackTrace();
             }
         }
         return result;
     }
 
-    private void addMessage(FacesMessage.Severity severity, String msg, boolean keepMessages){
+    private void addMessage(FacesMessage.Severity severity, String msg, boolean keepMessages) {
         final FacesMessage facesMessage = new FacesMessage(severity, msg, "");
         externalContext.getFlash().setKeepMessages(keepMessages);
         externalContext.getFlash().setRedirect(true);

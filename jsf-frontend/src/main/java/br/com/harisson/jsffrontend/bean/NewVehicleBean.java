@@ -25,18 +25,18 @@ public class NewVehicleBean implements Serializable {
         this.externalContext = externalContext;
     }
 
-    public void init(){
+    public void init() {
         vehicle = new Vehicle();
     }
 
-    public String nextPage(){
+    public String nextPage() {
         vehicle.setImagesFolderDirectory(generateImagesFolderName());
         Flash flash = externalContext.getFlash();
         flash.put("vehicle", vehicle);
         return "imagesuploadadmin.xhtml?faces-redirect=true";
     }
 
-    private String generateImagesFolderName(){
+    private String generateImagesFolderName() {
         return UUID.randomUUID().toString();
     }
 }

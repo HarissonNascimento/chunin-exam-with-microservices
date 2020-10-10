@@ -39,37 +39,37 @@ public class VehicleDetailsBean implements Serializable {
         this.imagesUtil = imagesUtil;
     }
 
-    public void init(){
+    public void init() {
         Flash flash = externalContext.getFlash();
         selectedVehicle = (Vehicle) flash.get("vehicle");
         buyersList = buyerRequest.findBuyersByVehicleId(selectedVehicle.getId());
         buyer = new Buyer();
     }
 
-    public void editVehicle(){
+    public void editVehicle() {
         isEditing = true;
     }
 
-    public void updateVehicle(){
+    public void updateVehicle() {
         setBuyerForVehicle();
         vehicleRequest.updateVehicle(selectedVehicle);
         isEditing = false;
     }
 
-    public List<String> listNameOfImages(){
+    public List<String> listNameOfImages() {
         File file = new File(imagesUtil.getVehicleImagesDirectoryName(selectedVehicle, externalContext));
         return imagesUtil.listNamesOfImagesInDirectory(file);
     }
 
-    public String buyVehicle(){
+    public String buyVehicle() {
         buyer.setVehicle(selectedVehicle);
         Flash flash = externalContext.getFlash();
         flash.put("buyer", buyer);
         return "registernewbuyer.xhtml?faces-redirect=true";
     }
 
-    private void setBuyerForVehicle(){
-        if (buyer.getId() != null){
+    private void setBuyerForVehicle() {
+        if (buyer.getId() != null) {
             selectedVehicle.setBuyerId(buyer.getId());
         }
     }
