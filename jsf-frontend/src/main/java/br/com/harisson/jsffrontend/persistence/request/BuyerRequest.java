@@ -52,9 +52,11 @@ public class BuyerRequest implements Serializable {
         return exchange.getBody();
     }
 
-    @ExceptionUnauthorized
     public Buyer saveBuyer(Buyer buyer) {
-        return buyerFromBodyResponseEntityRequest(URL_BUYER_POST.getUrl(), POST, buyer);
+        return restTemplate.exchange(URL_BUYER_POST.getUrl(),
+                POST,
+                new HttpEntity<>(buyer, jsonUtil.createJsonHeader()),
+                Buyer.class).getBody();
     }
 
     @ExceptionUnauthorized

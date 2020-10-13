@@ -14,7 +14,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <java.version>14</java.version>
+        <java.version>11</java.version>
         <core.version>1.0-SNAPSHOT</core.version>
     </properties>
 

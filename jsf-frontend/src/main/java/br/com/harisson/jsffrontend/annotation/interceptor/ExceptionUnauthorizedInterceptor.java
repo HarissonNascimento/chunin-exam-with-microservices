@@ -3,8 +3,6 @@ package br.com.harisson.jsffrontend.annotation.interceptor;
 import br.com.harisson.core.support.ErrorDetail;
 import br.com.harisson.jsffrontend.annotation.ExceptionUnauthorized;
 import br.com.harisson.jsffrontend.custom.CustomObjectMapper;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.HttpStatusCodeException;
 
 import javax.faces.application.FacesMessage;
@@ -14,7 +12,6 @@ import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
-import java.io.IOException;
 import java.io.Serializable;
 
 @Interceptor
@@ -28,20 +25,24 @@ public class ExceptionUnauthorizedInterceptor implements Serializable {
     }
 
     @AroundInvoke
-    public Object invoke(InvocationContext context) throws IOException {
+    public Object invoke(InvocationContext context) {
         Object result = null;
         try {
             result = context.proceed();
         } catch (Exception e) {
-            if (e instanceof HttpClientErrorException || e instanceof HttpServerErrorException) {
-                HttpStatusCodeException httpException = (HttpStatusCodeException) e;
-                ErrorDetail errorDetail = new CustomObjectMapper().readValue(httpException.getResponseBodyAsString(), ErrorDetail.class);
-                addMessage(FacesMessage.SEVERITY_ERROR, errorDetail.getMessage(), true);
-            } else {
-                e.printStackTrace();
-            }
+            retrieveStringFromExceptionBodyOrPrintStackTrace(e);
         }
         return result;
+    }
+
+    private void retrieveStringFromExceptionBodyOrPrintStackTrace(Exception e) {
+        try {
+            HttpStatusCodeException httpException = (HttpStatusCodeException) e;
+            ErrorDetail errorDetail = new CustomObjectMapper().readValue(httpException.getResponseBodyAsString(), ErrorDetail.class);
+            addMessage(FacesMessage.SEVERITY_ERROR, errorDetail.getMessage(), true);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
     private void addMessage(FacesMessage.Severity severity, String msg, boolean keepMessages) {

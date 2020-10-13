@@ -15,7 +15,7 @@ import static java.util.stream.Collectors.toList;
 
 @Slf4j
 public class SecurityContextUtil {
-    public SecurityContextUtil() {
+    private SecurityContextUtil() {
     }
 
     public static void setSecurityContext(SignedJWT signedJWT) {

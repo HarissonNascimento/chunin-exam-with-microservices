@@ -23,7 +23,7 @@ import static br.com.harisson.jsffrontend.model.enums.LoginStatus.OFF;
 @SessionScoped
 public class LoginBean implements Serializable {
     private boolean logged = false;
-    private String statusUser = OFF.getLoginStatus();
+    private String statusUser = OFF.getStringLoginStatus();
     private String username;
     private String password;
     private final LoginRequest loginRequest;
@@ -41,14 +41,14 @@ public class LoginBean implements Serializable {
         if (mapWithTokenAndExpirationTime == null) return null;
 
         addTokenAndExpirationTimeToCookies(mapWithTokenAndExpirationTime.get(NAME_TOKEN_HEADER.getHeaderName()), mapWithTokenAndExpirationTime.get(NAME_EXPTIME_HEADER.getHeaderName()));
-        statusUser = LOGGED.getLoginStatus();
+        statusUser = LOGGED.getStringLoginStatus();
         logged = true;
         return "adminpage.xhtml?faces-redirect=true";
     }
 
     public String logout() {
         removeTokenAndExpirationTimeFromCookies();
-        statusUser = OFF.getLoginStatus();
+        statusUser = OFF.getStringLoginStatus();
         logged = false;
         return "login.xhtml?faces-redirect=true";
     }

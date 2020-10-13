@@ -5,9 +5,9 @@ import lombok.Getter;
 @Getter
 public enum LoginStatus {
     LOGGED("Logout"), OFF("Login");
-    private final String loginStatus;
+    private final String stringLoginStatus;
 
     LoginStatus(String loginStatus) {
-        this.loginStatus = loginStatus;
+        this.stringLoginStatus = loginStatus;
     }
 }

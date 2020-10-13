@@ -6,6 +6,10 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 public class CustomURLEncoderDecoder {
+
+    private CustomURLEncoderDecoder() {
+    }
+
     public static String encodeUTF8(String value) {
         try {
             return value == null ? null : URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
