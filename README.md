@@ -13,7 +13,7 @@ Clique [aqui](https://youtu.be/O7oIAppBWsM) e assista um vídeo explicando como 
 
 |        discovery        	|      auth      	|          spring-backend         	|             gateway             	|                        jsf-frontend                       	|
 |:-----------------------:	|:--------------:	|:-------------------------------:	|:-------------------------------:	|:---------------------------------------------------------:	|
-| Registra microsserviços 	| Enpoints login 	| Enpoints veículos e compradores 	| Ponto de entrada e saída da API 	| Envia as requisições para o gateway e recebe as respostas 	|
+| Registra microsserviços 	| Enpoints login 	| Endpoints veículos e compradores 	| Ponto de entrada e saída da API 	| Envia as requisições para o gateway e recebe as respostas 	|
 
 Abaixo um diagrama da arquitetura do projeto
 
