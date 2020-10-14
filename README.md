@@ -13,7 +13,7 @@ Clique [aqui](https://youtu.be/O7oIAppBWsM) e assista um vídeo explicando como 
 
 |        discovery        	|      auth      	|          spring-backend         	|             gateway             	|                        jsf-frontend                       	|
 |:-----------------------:	|:--------------:	|:-------------------------------:	|:-------------------------------:	|:---------------------------------------------------------:	|
-| Registra microsserviços 	| Enpoints login 	| Endpoints veículos e compradores 	| Ponto de entrada e saída da API 	| Envia as requisições para o gateway e recebe as respostas 	|
+| Registrar microsserviços 	| Endpoints login 	| Endpoints veículos e compradores 	| Ponto de entrada e saída da API 	| Envia as requisições para o gateway e recebe as respostas 	|
 
 Abaixo um diagrama da arquitetura do projeto
 
@@ -33,10 +33,10 @@ já foram instalados.
 
 1.**Executando docker-compose up**
 
-No terminal
+No terminal, navegue até '.../chunin-exam-with-microservices/**spring-backend**>' e execute
 
 ```sh
-.../chunin-exam-with-microservices/spring-backend>docker-compose -f stack.yml up
+docker-compose up
 ```
 
 2.**Criando banco de dados**
@@ -51,7 +51,31 @@ para criar o banco de dados.
 
 3.**Executando os microsserviços**
 
-O primeiro microsserviço a ser executado deve ser o **discovery**, a ordem de execução dos outros não importa.
+Antes de executar os microsserviços vamos criar os jars dos módulos no nosso repositório local do maven.
+Para isso, no terminal, navegue até '.../**chunin-exam-with-microservices**>' e execute
+```sh
+mvn clean install -DskipTests
+```
+Feito isso, já podemos executar nossos microsserviços. Como descrito na [arquitetura do projeto](https://github.com/HarissonNascimento/chunin-exam-with-microservices#arquitetura), todos os microsserviços precisam se registrar no service discovery, portanto
+o primeiro microsserviço que deve ser executado é o 'discovery', para isso, no terminal, navegue até  '.../chunin-exam-with-microservices/**discovery**>' e execute
+```sh
+mvn spring-boot:run
+```
+Após sua execução, para executar o 'gateway', abra outra janela do terminal, navegue até '.../chunin-exam-with-microservices/**gateway**>' e execute
+```sh
+mvn spring-boot:run
+```
+Para executar o 'auth', abra mais uma janela do terminal, navegue até '.../chunin-exam-with-microservices/**auth**>' e execute
+```sh
+mvn spring-boot:run
+```
+E por fim, para executar o 'spring-backend', abra outra janela do terminal, navegue até '.../chunin-exam-with-microservices/**spring-backend**>' e execute
+```sh
+mvn spring-boot:run
+```
+
+Pronto, agora que temos todos os microsserviços sendo executados, já podemos passar para o próximo passo
+
 
 4.**Criando usuário admin**
 
@@ -73,21 +97,19 @@ INSERT INTO chunin_exam.application_user (password, role, username) VALUES ('$2a
 
 Para execução do front-end será necessário a configuração do Tomcat server, esse passo pode variar de IDE para IDE e caso não saiba como fazer basta uma pesquisa rápida que encontrará diversos sites explicando como configurar.
 
-Sua pasta WEB-INF deve conter:
+Sua pasta **WEB-INF** deve conter:
 
 ![web-inf](https://user-images.githubusercontent.com/61818941/95812154-20ad2c80-0ceb-11eb-83e3-59a878e931c8.png)
 
-Sua pasta WEB-INF/classes deve conter:
+Sua pasta WEB-INF/**classes** deve conter:
 
 ![classes](https://user-images.githubusercontent.com/61818941/95812292-6ec23000-0ceb-11eb-9086-7622d2f454ae.png)
 
-Sua pasta WEB-INF/lib deve conter:
+Sua pasta WEB-INF/**lib** deve conter:
 
 ![lib](https://user-images.githubusercontent.com/61818941/95812506-f445e000-0ceb-11eb-93e4-4bb7917c168e.png)
 
-Após as etapas acima, basta executar 'jsf-frontend'
-
-
+Após estas etapas, basta executar 'jsf-frontend'
 
 
 
