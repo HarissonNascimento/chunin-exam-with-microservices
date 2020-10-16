@@ -1,0 +1,71 @@
+<ui:composition
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+    <h:form>
+
+        <p:growl id="messages" showDetail="true"/>
+
+        <p:toolbar>
+
+            <f:facet name="left">
+                <h:panelGrid columns="4">
+
+                    <p:commandButton value="Home"
+                                     action="index.xhtml?faces-redirect=true"
+                                     icon="pi pi-home"/>
+
+                    <div class="ui-g-12 ui-md-4">
+                        <div class="ui-inputgroup">
+
+                            <p:inputText value="#{searchBean.model}"
+                                         placeholder="Procurar"/>
+                            <p:commandButton icon="pi pi-search"
+                                             styleClass="white-button"
+                                             action="#{searchBean.searchByModel}"/>
+
+                        </div>
+                    </div>
+
+                </h:panelGrid>
+
+            </f:facet>
+            <f:facet name="right">
+
+                <p:commandButton id="dynaButton"
+                                 value="Opções de gerenciamento"
+                                 type="button"
+                                 icon="pi pi-pencil"
+                                 rendered="#{loginBean.logged}"/>
+                <p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom">
+                    <p:submenu label="Painel">
+                        <p:menuitem value="Novo veículo"
+                                    action="newvehicleadmin.xhtml?faces-redirect=true"
+                                    ajax="false"
+                                    icon="pi pi-plus-circle"/>
+                        <p:menuitem value="Veículos a venda"
+                                    action="searchresult.xhtml?faces-redirect=true"
+                                    ajax="false"
+                                    icon="pi pi-list"/>
+                        <p:menuitem value="Painel Admin."
+                                    action="adminpage.xhtml?faces-redirect=true"
+                                    ajax="false"
+                                    icon="pi pi-home"/>
+                    </p:submenu>
+                </p:menu>
+
+                <p:commandButton value="#{loginBean.statusUser}" action="login.xhtml?faces-redirect=true"
+                                 icon="pi pi-sign-in" rendered="#{not loginBean.logged}"/>
+                <p:commandButton value="#{loginBean.statusUser}" action="#{loginBean.logout}"
+                                 icon="pi pi-sign-in" rendered="#{loginBean.logged}"/>
+
+            </f:facet>
+
+        </p:toolbar>
+
+    </h:form>
+
+</ui:composition>

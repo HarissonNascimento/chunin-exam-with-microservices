@@ -17,14 +17,14 @@ Clique [aqui](https://youtu.be/O7oIAppBWsM) e assista um vídeo explicando como 
 
 Abaixo um diagrama da arquitetura do projeto
 
-<img src="https://user-images.githubusercontent.com/61818941/95804088-21889300-0cd8-11eb-845a-95b247f6e8fb.jpg" height="300" width="300" alt="Project architecture image">
+<img src="https://user-images.githubusercontent.com/61818941/95804088-21889300-0cd8-11eb-845a-95b247f6e8fb.jpg" height="300" width="350" alt="Project architecture image">
 
 ## 📑Requisitos
-Para execução deste projeto é necessário ter pré-instalado:
-- [Docker](https://docs.docker.com/docker-for-windows/install/)
+Para execução deste projeto é necessário ter pré-instalado e configurado:
+- [Docker](https://docs.docker.com/get-docker/)
 - [Java 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
-- [Tomcat](http://tomcat.apache.org/index.html)
-- [Maven](http://maven.apache.org/download.cgi)
+- [Tomcat 9.0.37](https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.37/bin/)
+- [Maven 3.6.3](https://archive.apache.org/dist/maven/maven-3/3.6.3/binaries/)
 - Gerenciador de banco de dados(HeidiSQL, Workench, etc.)
 
 ## 🚀Executando o projeto
@@ -33,7 +33,7 @@ já foram instalados.
 
 1.**Executando docker-compose up**
 
-No terminal, navegue até '.../chunin-exam-with-microservices/**spring-backend**>' e execute
+Após a instalação do docker, execute-o e espere ele iniciar, após sua inicialização no terminal, navegue até '.../chunin-exam-with-microservices/**spring-backend**>' e execute
 
 ```sh
 docker-compose up
@@ -77,7 +77,7 @@ mvn spring-boot:run
 Pronto, agora que temos todos os microsserviços sendo executados, já podemos passar para o próximo passo
 
 
-4.**Criando usuário admin**
+4.**Criando usuário admin para aplicação**
 
 Após a execução dos microsserviços, se tudo correu bem as tabelas application_user, buyer e vehicle devem ter sido criadas.
 
@@ -95,21 +95,61 @@ INSERT INTO chunin_exam.application_user (password, role, username) VALUES ('$2a
 
 5.**Executando front-end**
 
-Para execução do front-end será necessário a configuração do Tomcat server, esse passo pode variar de IDE para IDE e caso não saiba como fazer basta uma pesquisa rápida que encontrará diversos sites explicando como configurar.
+Para executarmos o front-end precisamos primeiro inicializarmos o servidor do Tomcat 9.0.37.
 
-Sua pasta **WEB-INF** deve conter:
+Por padrão, quando se faz o download do servidor, não vem configurado nem um usuário administrador, então, o primeiro 
+passo é, configurarmos um usuário que nos possibilite ter acesso as opções de gerenciamento do mesmo.
 
-![web-inf](https://user-images.githubusercontent.com/61818941/95812154-20ad2c80-0ceb-11eb-83e3-59a878e931c8.png)
+Para isso, abra a pasta onde você instalou o Tomcat 9.0.37>conf:
 
-Sua pasta WEB-INF/**classes** deve conter:
 
-![classes](https://user-images.githubusercontent.com/61818941/95812292-6ec23000-0ceb-11eb-9086-7622d2f454ae.png)
+<img src="https://user-images.githubusercontent.com/61818941/96311846-c361f580-0fe0-11eb-9133-61350067f001.png" height="300" width="500" alt="Conf folder image">  
 
-Sua pasta WEB-INF/**lib** deve conter:
+Dentro da pasta conf, procure pelo arquivo **tomcat-users.xml**
 
-![lib](https://user-images.githubusercontent.com/61818941/95812506-f445e000-0ceb-11eb-93e4-4bb7917c168e.png)
+<img src="https://user-images.githubusercontent.com/61818941/96312548-3455dd00-0fe2-11eb-8751-b6740cb57aa9.png" height="300" width="500" alt="Tomcat-user archive image">
 
-Após estas etapas, basta executar 'jsf-frontend'
+Abra-o com um editor de textos qualquer e adicione o seguinte código uma linha acima de *</tomcat-users>*:
 
+```
+<role rolename="manager-gui"/>
+<user username="root" password="root" roles="tomcat,role1,admin,manager,manager-gui"/>
+```
+
+>Este comando irá criar um usuário cujo username é 'root' e a senha é 'root'
+
+Seu arquivo tomcat-users.xml deve se parecer com isso:
+
+<img src="https://user-images.githubusercontent.com/61818941/96322614-2eff8f00-0ff0-11eb-940d-cbc471f0ae8b.png" height="300" width="500" alt="Tomcat-user code image">
+
+Salve as edições feitas e pode fechar, já temos um usuário cadastrado em nosso servidor. 
+
+Agora vamos iniciar nosso servidor, para isso, abra outra janela do terminal e navegue até ...apache-tomcat-9.0.37/**bin** e execute:
+
+```sh
+catalina.bat run
+```
+
+>'apache-tomcat-9.0.37' é o nome da pasta do tomcat, caso você tenha renomeado, basta substituir.
+
+Após o servidor ter iniciado, no seu navegador, acesse: **http://localhost:8080/** e clique em _**Manager App**_
+
+<img src="https://user-images.githubusercontent.com/61818941/96320569-1cce2280-0fe9-11eb-829a-80151e14987c.png" height="300" width="500" alt="Manager App image">
+
+Preencha 'usuario' e 'senha' com os que configuramos no arquivo tomcat-user.xml.
+
+Na página que abriu, procure pela aba **_Deploy_** e preencha:
+
+* Context Path: **/jsf_frontend_war_exploded**
+* WAR or Directory path: **.../chunin-exam-with-microservices/out/artifacts/jsf_frontend_war_exploded**
+
+>Os campos 'Version (for parallel deployment)' e 'XML Configuration file path' devem ficar em branco
+
+
+<img src="https://user-images.githubusercontent.com/61818941/96322208-88ff5500-0fee-11eb-97b9-27e5a96bb4dc.png" height="300" width="500" alt="Manager App image">
+
+Com os campos preenchidos clique em **Deploy** e pronto, temos nosso front-end em: http://localhost:8080/jsf_frontend_war_exploded/
+
+_NOTA: Para o correto funcionamento do front-end, todos os microsserviços devem estar em execução._
 
 
