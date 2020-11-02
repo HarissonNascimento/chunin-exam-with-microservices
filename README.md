@@ -126,8 +126,14 @@ Salve as edições feitas e pode fechar, já temos um usuário cadastrado em nos
 
 Agora vamos iniciar nosso servidor, para isso, abra outra janela do terminal e navegue até ...apache-tomcat-9.0.37/**bin** e execute:
 
+Para sistemas Windows:
 ```sh
 catalina.bat run
+```
+
+Para sistemas Linux:
+```sh
+./catalina.sh run
 ```
 
 >'apache-tomcat-9.0.37' é o nome da pasta do tomcat, caso você tenha renomeado, basta substituir.
@@ -141,12 +147,15 @@ Preencha 'usuario' e 'senha' com os que configuramos no arquivo tomcat-user.xml.
 Na página que abriu, procure pela aba **_Deploy_** e preencha:
 
 * Context Path: **/jsf_frontend_war_exploded**
-* WAR or Directory path: **.../chunin-exam-with-microservices/out/artifacts/jsf_frontend_war_exploded**
+ 
+Ao executarmos o comando _mvn clean install -DskipTests_ no passo 3, em nosso diretório "jsf-frontend" foi gerada a pasta out e é com ela que faremos o deploy de nossa aplicação, para isso preencha o campo **WAR or Directory path** com o seguinte caminho de diretório:
+
+**.../chunin-exam-with-microservices/jsf-frontend/out/artifacts/jsf_frontend_war_exploded**
 
 >Os campos 'Version (for parallel deployment)' e 'XML Configuration file path' devem ficar em branco
 
 
-<img src="https://user-images.githubusercontent.com/61818941/96322208-88ff5500-0fee-11eb-97b9-27e5a96bb4dc.png" height="300" width="500" alt="Manager App image">
+<img src="https://user-images.githubusercontent.com/61818941/97794825-88b1ad00-1bdd-11eb-84f2-8c2b0f76bdd3.png" height="300" width="500" alt="Manager App image">
 
 Com os campos preenchidos clique em **Deploy** e pronto, temos nosso front-end em: http://localhost:8080/jsf_frontend_war_exploded/
 
