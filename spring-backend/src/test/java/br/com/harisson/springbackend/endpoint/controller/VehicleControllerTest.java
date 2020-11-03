@@ -55,7 +55,7 @@ class VehicleControllerTest {
         BDDMockito.when(vehicleServiceMock.saveVehicle(VehicleCreator.createVehicleSoldToBeSaved()))
                 .thenReturn(VehicleCreator.createValidSoldVehicle());
 
-        BDDMockito.doNothing().when(vehicleServiceMock).deleteVehicleById(any(Long.class));
+        BDDMockito.doNothing().when(vehicleServiceMock).deleteVehicleById(anyLong());
 
         BDDMockito.when(vehicleServiceMock.saveVehicle(VehicleCreator.createValidForSaleVehicle()))
                 .thenReturn(VehicleCreator.createValidUpdateVehicleForSale());
