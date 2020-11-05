@@ -219,4 +219,36 @@ class BuyerServiceTest {
 
         Assertions.assertThat(buyer.getName()).isEqualTo(expectedName);
     }
+
+    @Test
+    @DisplayName("Updating non contacted buyer when successful")
+    void update_UpdatingNonContactedBuyer_WhenSuccessful() {
+        Buyer validNonContactedBuyer = BuyerCreator.createValidUpdateNonContactedBuyer();
+
+        String expectedName = validNonContactedBuyer.getName();
+
+        buyerService.updateBuyer(validNonContactedBuyer);
+
+        Buyer updateBuyer = buyerService.findById(validNonContactedBuyer.getId());
+
+        Assertions.assertThat(updateBuyer).isNotNull();
+
+        Assertions.assertThat(updateBuyer.getName()).isEqualTo(expectedName);
+    }
+
+    @Test
+    @DisplayName("Updating contacted buyer when successful")
+    void update_UpdatingContactedBuyer_WhenSuccessful() {
+        Buyer validContactedBuyer = BuyerCreator.createValidUpdateContactedBuyer();
+
+        String expectedName = validContactedBuyer.getName();
+
+        buyerService.updateBuyer(validContactedBuyer);
+
+        Buyer updateBuyer = buyerService.findById(validContactedBuyer.getId());
+
+        Assertions.assertThat(updateBuyer).isNotNull();
+
+        Assertions.assertThat(updateBuyer.getName()).isEqualTo(expectedName);
+    }
 }

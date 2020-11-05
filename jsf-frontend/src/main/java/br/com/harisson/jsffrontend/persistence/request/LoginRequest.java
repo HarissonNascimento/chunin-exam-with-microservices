@@ -21,13 +21,12 @@ import static org.springframework.http.HttpMethod.POST;
 
 public class LoginRequest implements Serializable {
     private final CustomRestTemplate restTemplate;
-    private final JwtConfiguration jwtConfiguration;
+    private final JwtConfiguration jwtConfiguration = new JwtConfiguration();
     private final JsonUtil jsonUtil;
 
     @Inject
-    public LoginRequest(CustomRestTemplate restTemplate, JwtConfiguration jwtConfiguration, JsonUtil jsonUtil) {
+    public LoginRequest(CustomRestTemplate restTemplate, JsonUtil jsonUtil) {
         this.restTemplate = restTemplate;
-        this.jwtConfiguration = jwtConfiguration;
         this.jsonUtil = jsonUtil;
     }
 

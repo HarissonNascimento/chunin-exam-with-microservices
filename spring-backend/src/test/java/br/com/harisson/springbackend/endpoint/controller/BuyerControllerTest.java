@@ -64,6 +64,10 @@ class BuyerControllerTest {
 
         BDDMockito.when(buyerServiceMock.saveBuyer(BuyerCreator.createValidContactedBuyer()))
                 .thenReturn(BuyerCreator.createValidUpdateContactedBuyer());
+
+        BDDMockito.doNothing().when(buyerServiceMock).updateBuyer(BuyerCreator.createValidUpdateNonContactedBuyer());
+
+        BDDMockito.doNothing().when(buyerServiceMock).updateBuyer(BuyerCreator.createValidUpdateContactedBuyer());
     }
 
     @Test
@@ -207,5 +211,33 @@ class BuyerControllerTest {
         Assertions.assertThat(buyer.getId()).isNotNull();
 
         Assertions.assertThat(buyer.getName()).isEqualTo(expectedName);
+    }
+
+    @Test
+    @DisplayName("Updating non contacted buyer when successful")
+    void update_UpdatingNonConactedBuyer_WhenSuccessful() {
+        Buyer buyer = BuyerCreator.createValidUpdateNonContactedBuyer();
+
+        ResponseEntity<Void> responseEntity = buyerController.updateBuyer(buyer);
+
+        Assertions.assertThat(responseEntity).isNotNull();
+
+        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+
+        Assertions.assertThat(responseEntity.getBody()).isNull();
+    }
+
+    @Test
+    @DisplayName("Updating contacted buyer when successful")
+    void update_UpdatingContactedBuyer_WhenSuccessful() {
+        Buyer buyer = BuyerCreator.createValidUpdateContactedBuyer();
+
+        ResponseEntity<Void> responseEntity = buyerController.updateBuyer(buyer);
+
+        Assertions.assertThat(responseEntity).isNotNull();
+
+        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+
+        Assertions.assertThat(responseEntity.getBody()).isNull();
     }
 }

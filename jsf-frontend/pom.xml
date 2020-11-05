@@ -105,20 +105,15 @@
     </dependencies>
 
     <build>
+        <finalName>front</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
+                    <webXml>web/WEB-INF/web.xml</webXml>
                     <warSourceDirectory>web/</warSourceDirectory>
-                    <webappDirectory>out/artifacts/jsf_frontend_war_exploded</webappDirectory>
-                    <webResources>
-                        <resource>
-                            <directory>../core/target/classes</directory>
-                            <targetPath>WEB-INF/classes</targetPath>
-                        </resource>
-                    </webResources>
                 </configuration>
             </plugin>
             <plugin>

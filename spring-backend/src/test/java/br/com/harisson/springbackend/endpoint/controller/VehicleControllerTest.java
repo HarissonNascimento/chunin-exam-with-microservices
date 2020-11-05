@@ -62,6 +62,10 @@ class VehicleControllerTest {
 
         BDDMockito.when(vehicleServiceMock.saveVehicle(VehicleCreator.createValidSoldVehicle()))
                 .thenReturn(VehicleCreator.createValidUpdateVehicleSold());
+
+        BDDMockito.doNothing().when(vehicleServiceMock).updateVehicle(VehicleCreator.createValidUpdateVehicleForSale());
+
+        BDDMockito.doNothing().when(vehicleServiceMock).updateVehicle(VehicleCreator.createValidUpdateVehicleSold());
     }
 
     @Test
@@ -205,5 +209,33 @@ class VehicleControllerTest {
         Assertions.assertThat(vehicle.getId()).isNotNull();
 
         Assertions.assertThat(vehicle.getModel()).isEqualTo(expectedModel);
+    }
+
+    @Test
+    @DisplayName("Updating vehicle for sale when successful")
+    void update_UpdatingVehicleForSale_WhenSuccessful(){
+        Vehicle vehicle = VehicleCreator.createValidUpdateVehicleForSale();
+
+        ResponseEntity<Void> responseEntity = vehicleController.updateVehicle(vehicle);
+
+        Assertions.assertThat(responseEntity).isNotNull();
+
+        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+
+        Assertions.assertThat(responseEntity.getBody()).isNull();
+    }
+
+    @Test
+    @DisplayName("Updating sold vehicle when successful")
+    void update_UpdatingSoldVehicle_WhenSuccessful(){
+        Vehicle vehicle = VehicleCreator.createValidUpdateVehicleSold();
+
+        ResponseEntity<Void> responseEntity = vehicleController.updateVehicle(vehicle);
+
+        Assertions.assertThat(responseEntity).isNotNull();
+
+        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+
+        Assertions.assertThat(responseEntity.getBody()).isNull();
     }
 }

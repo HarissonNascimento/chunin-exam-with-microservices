@@ -217,4 +217,36 @@ class VehicleServiceTest {
 
         Assertions.assertThat(vehicle.getModel()).isEqualTo(expectedModel);
     }
+
+    @Test
+    @DisplayName("Updating vehicle for sale when successful")
+    void update_UpdatingVehicleForSale_WhenSuccessful() {
+        Vehicle validUpdateVehicleForSale = VehicleCreator.createValidUpdateVehicleForSale();
+
+        String expectedModel = validUpdateVehicleForSale.getModel();
+
+        vehicleService.updateVehicle(validUpdateVehicleForSale);
+
+        Vehicle updateVehicle = vehicleService.findById(validUpdateVehicleForSale.getId());
+
+        Assertions.assertThat(updateVehicle).isNotNull();
+
+        Assertions.assertThat(updateVehicle.getModel()).isEqualTo(expectedModel);
+    }
+
+    @Test
+    @DisplayName("Updating vehicle sold when successful")
+    void update_UpdatingVehicleSold_WhenSuccessful() {
+        Vehicle validUpdateVehicleSold = VehicleCreator.createValidUpdateVehicleSold();
+
+        String expectedModel = validUpdateVehicleSold.getModel();
+
+        vehicleService.updateVehicle(validUpdateVehicleSold);
+
+        Vehicle updateVehicle = vehicleService.findById(validUpdateVehicleSold.getId());
+
+        Assertions.assertThat(updateVehicle).isNotNull();
+
+        Assertions.assertThat(updateVehicle.getModel()).isEqualTo(expectedModel);
+    }
 }
