@@ -8,66 +8,92 @@
     <groupId>br.com.harisson</groupId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <swagger.version>2.9.2</swagger.version>
+        <jackson-datatype.version>2.9.1</jackson-datatype.version>
+        <jackson-core.version>2.9.1</jackson-core.version>
+        <jackson-databind.version>2.9.1</jackson-databind.version>
+        <jakarta-validation.version>2.0.2</jakarta-validation.version>
+        <jakarta-persistence.version>2.2.3</jakarta-persistence.version>
+        <lombok.version>1.18.12</lombok.version>
+        <spring-data-commons.version>2.3.3.RELEASE</spring-data-commons.version>
+        <spring-data-jpa.version>2.3.3.RELEASE</spring-data-jpa.version>
+        <spring-boot.version>2.3.3.RELEASE</spring-boot.version>
+        <spring-boot-configuration-processor.version>2.3.3.RELEASE</spring-boot-configuration-processor.version>
+    </properties>
+
     <dependencies>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>2.9.1</version>
+            <version>${jackson-datatype.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.9.1</version>
+            <version>${jackson-core.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.1</version>
+            <version>${jackson-databind.version}</version>
         </dependency>
 
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
-            <version>2.0.2</version>
+            <version>${jakarta-validation.version}</version>
         </dependency>
 
         <dependency>
             <groupId>jakarta.persistence</groupId>
             <artifactId>jakarta.persistence-api</artifactId>
-            <version>2.2.3</version>
+            <version>${jakarta-persistence.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.12</version>
+            <version>${lombok.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-commons</artifactId>
-            <version>2.3.3.RELEASE</version>
+            <version>${spring-data-commons.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
-            <version>2.3.3.RELEASE</version>
+            <version>${spring-data-jpa.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
-            <version>2.3.3.RELEASE</version>
+            <version>${spring-boot.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <version>2.3.3.RELEASE</version>
+            <version>${spring-boot-configuration-processor.version}</version>
             <optional>true</optional>
         </dependency>
 

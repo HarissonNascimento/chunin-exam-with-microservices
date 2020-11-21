@@ -27,6 +27,7 @@ public class SecurityConfig extends SecurityTokenConfig {
                 .authorizeRequests()
                 .antMatchers(GET, "/spring-backend/**").permitAll()
                 .antMatchers(POST, "/spring-backend/**/buyer/admin").permitAll()
+                .antMatchers("/actuator/**").permitAll()
                 .and()
                 .addFilterAfter(new GatewayJwtTokenAuthorizationFilter(jwtConfiguration, tokenConverter), UsernamePasswordAuthenticationFilter.class);
 

@@ -10,3 +10,15 @@ eureka:
     fetch-registry: false
     service-url:
       defaultZone: http://localhost:${server.port}/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+info:
+  app: Chunin Exam - Service Discovery
+  github: https://github.com/HarissonNascimento/chunin-exam-with-microservices
+  developer: Harisson Nascimento
+  linkedin: https://www.linkedin.com/in/harisson-nascimento/

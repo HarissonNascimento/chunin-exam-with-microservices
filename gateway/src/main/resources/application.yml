@@ -26,3 +26,15 @@ jwt:
 ribbon:
   ReadTimeout: 10000
   ConnectTimeout: 10000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+info:
+  app: Chunin Exam - Gateway Microservice
+  github: https://github.com/HarissonNascimento/chunin-exam-with-microservices
+  developer: Harisson Nascimento
+  linkedin: https://www.linkedin.com/in/harisson-nascimento/

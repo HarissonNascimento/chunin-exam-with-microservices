@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -34,7 +35,9 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(SecurityTokenConfig::createResponseBodyForHttpError401)
                 .and()
                 .authorizeRequests()
-                .antMatchers(jwtConfiguration.getLoginUrl()).permitAll()
+                .antMatchers(jwtConfiguration.getLoginUrl(), "/**/swagger-ui.html").permitAll()
+                .antMatchers(HttpMethod.GET,"/**/swagger-resources/**", "/**/webjars/springfox-swagger-ui/**", "/**/v2/api-docs/**").permitAll()
+                .antMatchers("/actuator/**").permitAll()
                 .anyRequest().authenticated();
     }
 

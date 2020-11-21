@@ -2,6 +2,8 @@ package br.com.harisson.springbackend.endpoint.controller;
 
 import br.com.harisson.core.model.Buyer;
 import br.com.harisson.springbackend.endpoint.service.BuyerService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,30 +20,36 @@ import java.util.List;
 @RequestMapping("v1/buyer")
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@Api(value = "Endpoint to manage buyer")
 public class BuyerController {
     private final BuyerService buyerService;
 
     @GetMapping(path = "/listAllBuyers", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "List all available buyers", response = Buyer[].class)
     public ResponseEntity<Iterable<Buyer>> listAllBuyers(Sort sort) {
         return ResponseEntity.ok(buyerService.listAllBuyers(sort));
     }
 
     @GetMapping(path = "/listNonContactedBuyers", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "List all available buyers non contacted", response = Buyer[].class)
     public ResponseEntity<List<Buyer>> listNonContactedBuyers() {
         return ResponseEntity.ok(buyerService.listNonContactedBuyers());
     }
 
     @GetMapping(path = "/listContactedBuyers", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "List all available buyers contacted", response = Buyer[].class)
     public ResponseEntity<List<Buyer>> listContactedBuyers() {
         return ResponseEntity.ok(buyerService.listContactedBuyers());
     }
 
     @GetMapping(path = "/findBuyersByVehicleId/{vehicleId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Search buyers by id vehicle", response = Buyer[].class)
     public ResponseEntity<List<Buyer>> findBuyersByVehicleId(@PathVariable Long vehicleId) {
         return ResponseEntity.ok(buyerService.findBuyersByVehicleId(vehicleId));
     }
 
     @GetMapping(path = "/findById/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Search buyer by id", response = Buyer.class)
     public ResponseEntity<Buyer> findById(@PathVariable Long id) {
         return ResponseEntity.ok(buyerService.findById(id));
     }

@@ -30,3 +30,14 @@ jwt:
   config:
     type: signed
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+info:
+  app: Chunin Exam - Spring Boot Backend Microservice
+  github: https://github.com/HarissonNascimento/chunin-exam-with-microservices
+  developer: Harisson Nascimento
+  linkedin: https://www.linkedin.com/in/harisson-nascimento/

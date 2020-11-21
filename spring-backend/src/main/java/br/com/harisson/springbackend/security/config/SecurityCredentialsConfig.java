@@ -26,6 +26,7 @@ public class SecurityCredentialsConfig extends SecurityTokenConfig {
                 .authorizeRequests()
                 .antMatchers(GET, "/**/vehicle/**", "/**/buyer/**").permitAll()
                 .antMatchers(POST, "/**/buyer/admin").permitAll()
+                .antMatchers("/actuator/**").permitAll()
                 .and()
                 .addFilterAfter(new JwtTokenAuthorizationFilter(jwtConfiguration, tokenConverter), UsernamePasswordAuthenticationFilter.class);
         super.configure(http);
