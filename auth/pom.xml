@@ -18,6 +18,11 @@
 	<properties>
 		<java.version>11</java.version>
 		<token.version>1.0-SNAPSHOT</token.version>
+		<jib-maven-plugin.version>2.6.0</jib-maven-plugin.version>
+		<docker.distroless.image>gcr.io/distroless/java:11</docker.distroless.image>
+		<docker.repo.url>harissonnascimento</docker.repo.url>
+		<docker.repo.project>auth-chunin-exam</docker.repo.project>
+		<docker.image.name>${docker.repo.url}/${docker.repo.project}</docker.image.name>
 	</properties>
 
 	<dependencies>
@@ -39,6 +44,25 @@
 	<build>
 		<finalName>auth</finalName>
 		<plugins>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>${jib-maven-plugin.version}</version>
+				<configuration>
+					<from>
+						<image>${docker.distroless.image}</image>
+					</from>
+					<to>
+						<image>${docker.image.name}</image>
+						<tags>
+							<tag>${project.version}</tag>
+						</tags>
+					</to>
+					<container>
+						<mainClass>br.com.harisson.auth.AuthApplication</mainClass>
+					</container>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

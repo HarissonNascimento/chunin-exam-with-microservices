@@ -1,9 +1,15 @@
-version: '3.1'
+version: '2.4'
+
+x-database-variables: &database-variables
+  SPRING_DATASOURCE_URL: jdbc:mysql://database_mysql:3306/chunin_exam?allowPublicKeyRetrieval=true&sslMode=DISABLED
+  SPRING_DATASOURCE_USERNAME: root
+  SPRING_DATASOURCE_PASSWORD: root
 
 services:
 
   db:
     image: mysql
+    container_name: database_mysql
     command: --default-authentication-plugin=mysql_native_password
     ports:
       - 3306:3306
@@ -12,22 +18,66 @@ services:
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - chunin_exam:/var/lib/mysql
+    mem_limit: 512m
 
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
     volumes:
-    - "./src/main/resources/prometheus.yml:/etc/prometheus/prometheus.yml"
-    command:
-    - "--config.file=/etc/prometheus/prometheus.yml"
+      - "./src/main/resources/prometheus.yml:/etc/prometheus/prometheus.yml"
+    command: "--config.file=/etc/prometheus/prometheus.yml"
     ports:
-    - "9090:9090"
+      - "9090:9090"
+    mem_limit: 128m
 
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
     ports:
-    - "3000:3000"
+      - "3000:3000"
+    mem_limit: 128m
+
+  discovery:
+    container_name: discovery
+    image: harissonnascimento/discovery-chunin-exam:0.0.1-SNAPSHOT
+    ports:
+      - "8081:8081"
+    mem_limit: 512m
+
+  gateway:
+    container_name: gateway
+    image: harissonnascimento/gateway-chunin-exam:0.0.1-SNAPSHOT
+    ports:
+      - "8082:8082"
+    mem_limit: 512m
+    depends_on:
+      - discovery
+    environment:
+      eureka.client.service-url.defaultZone: http://discovery:8081/eureka/
+
+  auth:
+    container_name: auth
+    image: harissonnascimento/auth-chunin-exam:0.0.1-SNAPSHOT
+    ports:
+      - "8083:8083"
+    mem_limit: 512m
+    depends_on:
+      - discovery
+    environment:
+      <<: *database-variables
+      eureka.client.service-url.defaultZone: http://discovery:8081/eureka/
+
+  spring-backend:
+    container_name: spring-backend
+    image: harissonnascimento/spring-backend-chunin-exam:0.0.1-SNAPSHOT
+    ports:
+      - "8084:8084"
+    mem_limit: 1024m
+    depends_on:
+      - discovery
+    environment:
+      <<: *database-variables
+      eureka.client.service-url.defaultZone: http://discovery:8081/eureka/
 
 volumes:
   chunin_exam:

@@ -21,6 +21,11 @@
 		<jaxb-api.version>2.3.1</jaxb-api.version>
 		<jaxb-runtime.version>2.3.3</jaxb-runtime.version>
 		<harisson.spring-cloud.version>2.2.5.RELEASE</harisson.spring-cloud.version>
+		<jib-maven-plugin.version>2.6.0</jib-maven-plugin.version>
+		<docker.distroless.image>gcr.io/distroless/java:11</docker.distroless.image>
+		<docker.repo.url>harissonnascimento</docker.repo.url>
+		<docker.repo.project>discovery-chunin-exam</docker.repo.project>
+		<docker.image.name>${docker.repo.url}/${docker.repo.project}</docker.image.name>
 	</properties>
 
 	<dependencies>
@@ -39,6 +44,12 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 			<version>${harisson.spring-cloud.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>servlet-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -70,6 +81,25 @@
 	<build>
 		<finalName>discovery</finalName>
 		<plugins>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>${jib-maven-plugin.version}</version>
+				<configuration>
+					<from>
+						<image>${docker.distroless.image}</image>
+					</from>
+					<to>
+						<image>${docker.image.name}</image>
+						<tags>
+							<tag>${project.version}</tag>
+						</tags>
+					</to>
+					<container>
+						<mainClass>br.com.harisson.discovery.DiscoveryApplication</mainClass>
+					</container>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
