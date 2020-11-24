@@ -21,6 +21,11 @@
         <harisson.weld-servlet>2.4.5.Final</harisson.weld-servlet>
         <harisson.httpclient>4.5.3</harisson.httpclient>
         <harisson.primefaces>8.0</harisson.primefaces>
+        <jib-maven-plugin.version>2.6.0</jib-maven-plugin.version>
+        <docker.repo.url>harissonnascimento</docker.repo.url>
+        <docker.repo.project>jsf-frontend-chunin-exam</docker.repo.project>
+        <docker.image.name>${docker.repo.url}/${docker.repo.project}</docker.image.name>
+        <docker.tomcat.image>tomcat:latest</docker.tomcat.image>
     </properties>
 
     <dependencies>
@@ -107,6 +112,25 @@
     <build>
         <finalName>front</finalName>
         <plugins>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>${jib-maven-plugin.version}</version>
+                <configuration>
+                    <from>
+                        <image>${docker.tomcat.image}</image>
+                    </from>
+                    <to>
+                        <image>${docker.image.name}</image>
+                        <tags>
+                            <tag>${project.version}</tag>
+                        </tags>
+                    </to>
+                    <container>
+                        <appRoot>/usr/local/tomcat/webapps/front.war</appRoot>
+                    </container>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>

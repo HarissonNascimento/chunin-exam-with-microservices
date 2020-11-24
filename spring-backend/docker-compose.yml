@@ -79,5 +79,12 @@ services:
       <<: *database-variables
       eureka.client.service-url.defaultZone: http://discovery:8081/eureka/
 
+  jsf-frontend:
+    container_name: jsf-frontend
+    image: harissonnascimento/jsf-frontend-chunin-exam:1.0-SNAPSHOT
+    ports:
+    - "8080:8080"
+    mem_limit: 512m
+
 volumes:
   chunin_exam:

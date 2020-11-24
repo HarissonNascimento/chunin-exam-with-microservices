@@ -1,7 +1,7 @@
 package br.com.harisson.jsffrontend.util;
 
 public enum APIUtil {
-    URL_VEHICLE_BASE("http://localhost:8082/gateway/spring-backend/v1/vehicle"),
+    URL_VEHICLE_BASE("http://gateway:8082/gateway/spring-backend/v1/vehicle"),
     URL_VEHICLE_POST(concatUrlVehicleBaseWithComplement("/admin")),
     URL_VEHICLE_PUT(concatUrlVehicleBaseWithComplement("/admin")),
     URL_VEHICLE_DELETE_BY_ID(concatUrlVehicleBaseWithComplement("/admin/{id}")),
@@ -11,7 +11,7 @@ public enum APIUtil {
     URL_VEHICLE_LIST_BY_MODEL(concatUrlVehicleBaseWithComplement("/listVehiclesByModel")),
     URL_VEHICLE_FIND_BY_ID(concatUrlVehicleBaseWithComplement("/findVehicleById/{id}")),
     // ----------------------------------------------------------------------------------
-    URL_BUYER_BASE("http://localhost:8082/gateway/spring-backend/v1/buyer"),
+    URL_BUYER_BASE("http://gateway:8082/gateway/spring-backend/v1/buyer"),
     URL_BUYER_POST(concatUrlBuyerBaseWithComplement("/admin")),
     URL_BUYER_PUT(concatUrlBuyerBaseWithComplement("/admin")),
     URL_BUYER_DELETE_BY_ID(concatUrlBuyerBaseWithComplement("/admin/{id}")),
@@ -21,7 +21,7 @@ public enum APIUtil {
     URL_BUYER_FIND_BY_VEHICLE_ID(concatUrlBuyerBaseWithComplement("/findBuyersByVehicleId/{vehicleId}")),
     URL_BUYER_FIND_BY_ID(concatUrlBuyerBaseWithComplement("/findById/{id}")),
     // ----------------------------------------------------------------------------------
-    URL_AUTH_LOGIN("http://localhost:8082/gateway/auth/login");
+    URL_AUTH_LOGIN("http://gateway:8082/gateway/auth/login");
 
     private final String urlBase;
 
