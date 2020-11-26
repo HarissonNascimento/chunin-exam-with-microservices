@@ -1,3 +1,5 @@
+<img src="https://img.shields.io/github/workflow/status/HarissonNascimento/chunin-exam-with-microservices/chunin-exam%20CI?style=plastic" alt="Project Badge"/>
+
 ## 💬O que há neste documento
 * [Proposta inicial](https://github.com/HarissonNascimento/chunin-exam-with-microservices#proposta-inicial)
 * [Arquitetura](https://github.com/HarissonNascimento/chunin-exam-with-microservices#arquitetura)
@@ -24,9 +26,6 @@ Abaixo um diagrama da arquitetura do projeto
 ## 📑Requisitos
 Para execução deste projeto é necessário ter pré-instalado e configurado:
 - [Docker](https://docs.docker.com/get-docker/)
-- [Java 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
-- [Tomcat 9.0.37](https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.37/bin/)
-- [Maven 3.6.3](https://archive.apache.org/dist/maven/maven-3/3.6.3/binaries/)
 - Gerenciador de banco de dados(HeidiSQL, Workench, etc.)
 
 ## 🚀Executando o projeto
@@ -41,49 +40,9 @@ Após a instalação do docker, execute-o e espere ele iniciar, após sua inicia
 docker-compose up
 ```
 
-2.**Criando banco de dados**
+2.**Criando usuário admin para aplicação**
 
-No seu gerenciador de banco dados, na porta 3306, usuário: root e senha: root, execute: 
-
-```sh
-create schema chunin_exam;
-```
-
-para criar o banco de dados.
-
-3.**Executando os microsserviços**
-
-Antes de executar os microsserviços vamos criar os jars dos módulos no nosso repositório local do maven.
-Para isso, no terminal, navegue até '.../**chunin-exam-with-microservices**>' e execute
-```sh
-mvn clean install -DskipTests
-```
-Feito isso, já podemos executar nossos microsserviços. Como descrito na [arquitetura do projeto](https://github.com/HarissonNascimento/chunin-exam-with-microservices#arquitetura), todos os microsserviços precisam se registrar no service discovery, portanto
-o primeiro microsserviço que deve ser executado é o 'discovery', para isso, no terminal, navegue até  '.../chunin-exam-with-microservices/**discovery**>' e execute
-```sh
-mvn spring-boot:run
-```
-Após sua execução, para executar o 'gateway', abra outra janela do terminal, navegue até '.../chunin-exam-with-microservices/**gateway**>' e execute
-```sh
-mvn spring-boot:run
-```
-Para executar o 'auth', abra mais uma janela do terminal, navegue até '.../chunin-exam-with-microservices/**auth**>' e execute
-```sh
-mvn spring-boot:run
-```
-E por fim, para executar o 'spring-backend', abra outra janela do terminal, navegue até '.../chunin-exam-with-microservices/**spring-backend**>' e execute
-```sh
-mvn spring-boot:run
-```
-
-Pronto, agora que temos todos os microsserviços sendo executados, já podemos passar para o próximo passo
-
-
-4.**Criando usuário admin para aplicação**
-
-Após a execução dos microsserviços, se tudo correu bem as tabelas application_user, buyer e vehicle devem ter sido criadas.
-
-O usuário admin deve ser inserido manualmente, para isso, no seu gerenciador de banco de dados execute:
+O usuário admin deve ser inserido manualmente, para isso, no seu gerenciador de banco de dados, na porta 3306, usuário: root e senha: root, selecione o schema chunin_exam e execute:
 
 ```sh
 INSERT INTO chunin_exam.application_user (password, role, username) VALUES ('$2a$10$L8LU9vI.48.kxxmbKRYAMeK/iITE3jRAxOJlf63Uwv7QeQSPkICya', 'ADMIN', 'root');
@@ -95,24 +54,9 @@ INSERT INTO chunin_exam.application_user (password, role, username) VALUES ('$2a
 |:----------------------:	|:---------------------------------------------:	|:-------------------------:	|:---------------:	|
 | Gerado automaticamente 	| O password deve estar criptografado em bcrypt 	| As roles são ADMIN e USER 	| Nome de usuário 	|
 
-5.**Executando front-end**
+3.**Desfrutando da aplicação**
 
-Para executarmos o front-end, abra o terminal e navegue até '.../chunin-exam-with-microservices/**jsf-frontend**>' e execute:
-
-```sh
-mvn clean package
-```
-
-Feito isso, veremos que no diretório '.../chunin-exam-with-microservices/jsf-frontend' foi criada a pasta 'target' e dentro dela, um arquivo 'front.war'.
-Copie este arquivo para a pasta 'webapps' onde você instalou o tomcat em: \<tomcat\>/**webapps**
-
-Agora, dentro da pasta \<tomcat\>/**bin** execute o arquivo 'startup.bat' ou 'startup.sh' dependendo do seu sistema operacional.
-
-Por fim, se tudo correu bem, nossa aplicação estará rodando em http://localhost:8080/front
-
-> \*\<tomcat\> refere-se a pasta onde você instalou o tomcat
-
-_NOTA: Para o correto funcionamento do front-end, todos os microsserviços devem estar em execução._
+Feito todos os passos, podemos acessar a aplicação em: http://localhost:8080/front
 
 ## 📊Monitoramento
 Para monitorar as métricas da utilização de recursos das API's deste projeto foram utilizados os frameworks prometheus e grafana.

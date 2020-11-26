@@ -16,6 +16,7 @@ services:
     environment:
       MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: chunin_exam
     volumes:
       - chunin_exam:/var/lib/mysql
     mem_limit: 512m
@@ -83,7 +84,7 @@ services:
     container_name: jsf-frontend
     image: harissonnascimento/jsf-frontend-chunin-exam:1.0-SNAPSHOT
     ports:
-    - "8080:8080"
+      - "8080:8080"
     mem_limit: 512m
 
 volumes:

@@ -127,7 +127,7 @@
                         </tags>
                     </to>
                     <container>
-                        <appRoot>/usr/local/tomcat/webapps/front.war</appRoot>
+                        <appRoot>/usr/local/tomcat/webapps/front</appRoot>
                     </container>
                 </configuration>
             </plugin>

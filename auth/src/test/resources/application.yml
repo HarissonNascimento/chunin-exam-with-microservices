@@ -1,0 +1,35 @@
+eureka:
+  client:
+    enabled: false
+
+spring:
+  application:
+    name: auth
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+
+  jmx:
+    enabled: false
+  datasource:
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+    username: root
+    password: root
+
+jwt:
+  config:
+    type: signed
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+info:
+  app: Chunin Exam - Auth Microservice
+  github: https://github.com/HarissonNascimento/chunin-exam-with-microservices
+  developer: Harisson Nascimento
+  linkedin: https://www.linkedin.com/in/harisson-nascimento/
+
